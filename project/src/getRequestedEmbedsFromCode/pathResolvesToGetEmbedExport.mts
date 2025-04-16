@@ -54,6 +54,7 @@ export function pathResolvesToGetEmbedExport(
 			continue
 		}
 
+		// todo: handle getEmbedAs***?
 		if (
 			specifier.imported.name === "getEmbed" &&
 			isEnkoreProjectModuleSpecifier(moduleNode.source.value)
