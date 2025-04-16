@@ -1,7 +1,7 @@
 export function processCallExpression(path: any): string|false {
 	if (path.node.arguments.length !== 1) {
 		throw new Error(
-			`getAsset() takes exactly one argument.`
+			`getEmbed() takes exactly one argument.`
 		)
 	}
 

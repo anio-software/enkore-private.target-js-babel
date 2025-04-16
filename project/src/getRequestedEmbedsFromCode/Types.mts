@@ -1,7 +1,7 @@
 export type ReasonWhyUnknown = "unknown"                |
                                "starImportUsed"         |
-                               "getAssetIdentifierUsed" |
-                               "getAssetDynamicURL"
+                               "getEmbedIdentifierUsed" |
+                               "getEmbedDynamicURL"
 
 export type RequestedEmbedsFromCodeResult = {
 	codeRequestsEmbeds: false,

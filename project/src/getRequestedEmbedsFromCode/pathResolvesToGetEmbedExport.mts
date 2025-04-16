@@ -28,7 +28,7 @@ export function pathResolvesToGetEmbedExport(
 	const moduleNode = binding.path.parentPath.node
 
 	//
-	// check if this is a call to getAsset()
+	// check if this is a call to getEmbed()
 	// from @fourtune/realm-js/assets
 	//
 	for (const specifier of moduleNode.specifiers) {
@@ -47,7 +47,7 @@ export function pathResolvesToGetEmbedExport(
 
 		if (
 			// local name is the name used in the scope
-			// {getAsset as localName}
+			// {getEmbed as localName}
 			//              ^^^ local name
 			specifier.local.name !== bindingName
 		) {
@@ -55,7 +55,7 @@ export function pathResolvesToGetEmbedExport(
 		}
 
 		if (
-			specifier.imported.name === "getAsset" &&
+			specifier.imported.name === "getEmbed" &&
 			isEnkoreProjectModuleSpecifier(moduleNode.source.value)
 		) {
 			return true

@@ -45,22 +45,22 @@ export async function getRequestedEmbedsFromCode(
 				return
 			}
 
-			// getAsset was used, we just don't know how
+			// getEmbed was used, we just don't know how
 			// this is the worst case
 			if (parentPath.node.type !== "CallExpression") {
 				requestedEmbeds = false
 				path.stop()
-				reasonWhyUnknown = "getAssetIdentifierUsed"
+				reasonWhyUnknown = "getEmbedIdentifierUsed"
 				return
 			}
 
 			const result = processCallExpression(parentPath)
 
-			// we don't know what this call to getAsset is requesting
+			// we don't know what this call to getEmbed is requesting
 			if (result === false) {
 				requestedEmbeds = false
 				path.stop()
-				reasonWhyUnknown = "getAssetDynamicURL"
+				reasonWhyUnknown = "getEmbedDynamicURL"
 				return
 			}
 
@@ -76,7 +76,7 @@ export async function getRequestedEmbedsFromCode(
 		}
 	})
 
-	// no assets were used
+	// no embeds were used
 	if (requestedEmbeds === null) {
 		return {
 			codeRequestsEmbeds: false,
@@ -84,7 +84,7 @@ export async function getRequestedEmbedsFromCode(
 		}
 	}
 
-	// we know assets were used but don't know
+	// we know embeds were used but don't know
 	// which ones (worst case)
 	if (requestedEmbeds === false) {
 		return {
