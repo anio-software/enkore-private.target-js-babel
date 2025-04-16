@@ -1,0 +1,31 @@
+{
+  "name": "@enkore/babel",
+  "version": "0.0.0",
+  "author": "Anio Software <info@anio.software>",
+  "description": "Wrapper package around the babel dependency.",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "types": "./dist/default/index.d.mts",
+      "default": "./dist/default/index.mjs"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enkore-org/babel.git"
+  },
+  "type": "module",
+  "dependencies": {
+    "@babel/core": "^7.26.10",
+    "@babel/preset-typescript": "^7.27.0",
+    "@babel/traverse": "^7.27.0"
+  },
+  "files": [
+    "./dist/"
+  ],
+  "devDependencies": {
+    "@enkore-target/js-node": "^0.0.2",
+    "@enkore/core": "^0.6.6",
+    "enkore": "^0.0.21"
+  }
+}
