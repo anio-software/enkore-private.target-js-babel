@@ -9,11 +9,11 @@ export function processCallExpression(
 		)
 	}
 
-	const url_param = path.node.arguments[0]
+	const urlParam = path.node.arguments[0]
 
-	if (url_param.type !== "StringLiteral") {
+	if (urlParam.type !== "StringLiteral") {
 		return false
 	}
 
-	return url_param.value
+	return urlParam.value
 }
