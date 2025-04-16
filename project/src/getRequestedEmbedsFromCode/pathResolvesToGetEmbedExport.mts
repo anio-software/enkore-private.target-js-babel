@@ -1,5 +1,6 @@
 export function pathResolvesToGetEmbedExport(
 	enkoreProjectModuleSpecifiers: string[],
+	enkoreProjectModuleGetEmbedProperties: string[],
 	path: any,
 	bindingName: string
 ): boolean|"unknown" {
@@ -40,9 +41,8 @@ export function pathResolvesToGetEmbedExport(
 			continue
 		}
 
-		// todo: handle getEmbedAs***?
 		if (
-			specifier.imported.name === "getEmbed" &&
+			enkoreProjectModuleGetEmbedProperties.includes(specifier.imported.name) &&
 			isEnkoreProjectModuleSpecifier(moduleNode.source.value)
 		) {
 			return true

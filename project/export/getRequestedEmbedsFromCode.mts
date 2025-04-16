@@ -2,7 +2,12 @@ import {getRequestedEmbedsFromCode as impl} from "#~src/getRequestedEmbedsFromCo
 
 export async function getRequestedEmbedsFromCode(
 	enkoreProjectModuleSpecifiers: string[],
+	enkoreProjectModuleGetEmbedProperties: string[],
 	code: string
 ) {
-	return await impl(enkoreProjectModuleSpecifiers, code)
+	return await impl(
+		enkoreProjectModuleSpecifiers,
+		enkoreProjectModuleGetEmbedProperties,
+		code
+	)
 }

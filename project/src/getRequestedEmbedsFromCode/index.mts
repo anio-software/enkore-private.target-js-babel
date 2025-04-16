@@ -16,6 +16,7 @@ import {processCallExpression} from "./processCallExpression.mts"
 
 export async function getRequestedEmbedsFromCode(
 	enkoreProjectModuleSpecifiers: string[],
+	enkoreProjectModuleGetEmbedProperties: string[],
 	code: string
 ): Promise<RequestedEmbedsFromCodeResult> {
 	let requestedEmbeds: false|string[]|null = null
@@ -31,6 +32,7 @@ export async function getRequestedEmbedsFromCode(
 
 			const tmp = pathResolvesToGetEmbedExport(
 				enkoreProjectModuleSpecifiers,
+				enkoreProjectModuleGetEmbedProperties,
 				path,
 				bindingName
 			)
