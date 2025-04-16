@@ -1,9 +1,17 @@
-const enkoreProjectModuleSpecifier = "@fourtune/realm-js/v0/assets"
+const enkoreProjectModuleSpecifiers = [
+	"@fourtune/realm-js/v0/assets"
+]
 
 function resolvesToEnkoreProjectModuleSpecifier(
-	specifier: string
+	str: string
 ): boolean {
-	return enkoreProjectModuleSpecifier === specifier
+	for (const specifier of enkoreProjectModuleSpecifiers) {
+		if (str === specifier) {
+			return true
+		}
+	}
+
+	return false
 }
 
 export function pathResolvesToFourtuneGetAssetExport(
