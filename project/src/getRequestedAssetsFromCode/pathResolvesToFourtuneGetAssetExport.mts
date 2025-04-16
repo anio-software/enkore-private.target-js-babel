@@ -1,4 +1,4 @@
-const fourtune_assets_module = "@fourtune/realm-js/v0/assets"
+const enkoreProjectModuleSpecifier = "@fourtune/realm-js/v0/assets"
 
 export function pathResolvesToFourtuneGetAssetExport(
 	path: any, bindingName: string
@@ -24,7 +24,7 @@ export function pathResolvesToFourtuneGetAssetExport(
 		}
 		// handle star imports
 		if (specifier.type === "ImportNamespaceSpecifier") {
-			if (moduleNode.source.value === fourtune_assets_module) {
+			if (moduleNode.source.value === enkoreProjectModuleSpecifier) {
 				return "unknown"
 			}
 
@@ -42,7 +42,7 @@ export function pathResolvesToFourtuneGetAssetExport(
 
 		if (
 			specifier.imported.name === "getAsset" &&
-			moduleNode.source.value === fourtune_assets_module
+			moduleNode.source.value === enkoreProjectModuleSpecifier
 		) {
 			return true
 		}
