@@ -18,7 +18,7 @@ export async function jsGetRequestedAssetsFromCode(
 	code: string
 ): Promise<JsGetRequestedAssetsFromCodeResult> {
 	let requestedEmbeds: false|string[]|null = null
-	let reason: JsGetRequestedAssetsFromCodeReason = "unknown"
+	let reasonWhyUnknown: JsGetRequestedAssetsFromCodeReason = "unknown"
 
 	const ast = parse(code, {
 		sourceType: "module"
@@ -35,7 +35,7 @@ export async function jsGetRequestedAssetsFromCode(
 			} else if (tmp === "unknown") {
 				requestedEmbeds = false
 				path.stop()
-				reason = "starImportUsed"
+				reasonWhyUnknown = "starImportUsed"
 				return
 			}
 
@@ -50,7 +50,7 @@ export async function jsGetRequestedAssetsFromCode(
 			if (parentPath.node.type !== "CallExpression") {
 				requestedEmbeds = false
 				path.stop()
-				reason = "getAssetIdentifierUsed"
+				reasonWhyUnknown = "getAssetIdentifierUsed"
 				return
 			}
 
@@ -60,7 +60,7 @@ export async function jsGetRequestedAssetsFromCode(
 			if (result === false) {
 				requestedEmbeds = false
 				path.stop()
-				reason = "getAssetDynamicURL"
+				reasonWhyUnknown = "getAssetDynamicURL"
 				return
 			}
 
@@ -90,7 +90,7 @@ export async function jsGetRequestedAssetsFromCode(
 		return {
 			used: true,
 			assets: "unknown",
-			reason
+			reason: reasonWhyUnknown
 		}
 	}
 
