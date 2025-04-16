@@ -27,9 +27,9 @@ export async function jsGetRequestedAssetsFromCode(
 
 	traverse(ast, {
 		Identifier(path: any) {
-			const binding_name = path.node.name
+			const bindingName = path.node.name
 
-			const tmp = pathResolvesToFourtuneGetAssetExport(path, binding_name)
+			const tmp = pathResolvesToFourtuneGetAssetExport(path, bindingName)
 
 			if (tmp === false) {
 				return
