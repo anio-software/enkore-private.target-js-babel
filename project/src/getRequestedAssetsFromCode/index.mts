@@ -7,8 +7,8 @@ import {parse} from "@babel/core"
 const traverse = _traverse.default
 
 import type {
-	JsGetRequestedAssetsFromCodeResult,
-	JsGetRequestedAssetsFromCodeReason
+	RequestedEmbedsFromCodeResult,
+	ReasonWhyUnknown
 } from "./Types.mts"
 
 import {pathResolvesToFourtuneGetAssetExport} from "./pathResolvesToFourtuneGetAssetExport.mts"
@@ -16,9 +16,9 @@ import {processCallExpression} from "./processCallExpression.mts"
 
 export async function jsGetRequestedAssetsFromCode(
 	code: string
-): Promise<JsGetRequestedAssetsFromCodeResult> {
+): Promise<RequestedEmbedsFromCodeResult> {
 	let requestedEmbeds: false|string[]|null = null
-	let reasonWhyUnknown: JsGetRequestedAssetsFromCodeReason = "unknown"
+	let reasonWhyUnknown: ReasonWhyUnknown = "unknown"
 
 	const ast = parse(code, {
 		sourceType: "module"
@@ -79,8 +79,8 @@ export async function jsGetRequestedAssetsFromCode(
 	// no assets were used
 	if (requestedEmbeds === null) {
 		return {
-			used: false,
-			assets: null
+			codeRequestsEmbeds: false,
+			requestedEmbeds: null
 		}
 	}
 
@@ -88,14 +88,14 @@ export async function jsGetRequestedAssetsFromCode(
 	// which ones (worst case)
 	if (requestedEmbeds === false) {
 		return {
-			used: true,
-			assets: "unknown",
-			reason: reasonWhyUnknown
+			codeRequestsEmbeds: true,
+			requestedEmbeds: "unknown",
+			reasonWhyUnknown
 		}
 	}
 
 	return {
-		used: true,
-		assets: requestedEmbeds
+		codeRequestsEmbeds: true,
+		requestedEmbeds
 	}
 }

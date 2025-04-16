@@ -1,21 +1,16 @@
-export type JsGetRequestedAssetsFromCodeReason =
-	"unknown" |
-	"starImportUsed" |
-	"getAssetIdentifierUsed" |
-	"getAssetDynamicURL"
+export type ReasonWhyUnknown = "unknown"                |
+                               "starImportUsed"         |
+                               "getAssetIdentifierUsed" |
+                               "getAssetDynamicURL"
 
-export type JsGetRequestedAssetsFromCodeResult = {
-	used: false,
-	assets: null
+export type RequestedEmbedsFromCodeResult = {
+	codeRequestsEmbeds: false,
+	requestedEmbeds: null
 } | {
-	used: true,
-	assets: string[]
+	codeRequestsEmbeds: true,
+	requestedEmbeds: string[]
 } | {
-	used: true,
-	assets: "unknown",
-	reason: JsGetRequestedAssetsFromCodeReason
+	codeRequestsEmbeds: true,
+	requestedEmbeds: "unknown",
+	reasonWhyUnknown: ReasonWhyUnknown
 }
-
-export type JsGetRequestedAssetsFromCode = (
-	code : string
-) => Promise<JsGetRequestedAssetsFromCodeResult>
