@@ -17,7 +17,7 @@ import {processCallExpression} from "./processCallExpression.mts"
 export async function jsGetRequestedAssetsFromCode(
 	code: string
 ): Promise<JsGetRequestedAssetsFromCodeResult> {
-	let asset_urls: false|string[]|null = null
+	let requestedEmbeds: false|string[]|null = null
 	let reason: JsGetRequestedAssetsFromCodeReason = "unknown"
 
 	const ast = parse(code, {
@@ -33,7 +33,7 @@ export async function jsGetRequestedAssetsFromCode(
 			if (tmp === false) {
 				return
 			} else if (tmp === "unknown") {
-				asset_urls = false
+				requestedEmbeds = false
 				path.stop()
 				reason = "starImportUsed"
 				return
@@ -48,7 +48,7 @@ export async function jsGetRequestedAssetsFromCode(
 			// getAsset was used, we just don't know how
 			// this is the worst case
 			if (parentPath.node.type !== "CallExpression") {
-				asset_urls = false
+				requestedEmbeds = false
 				path.stop()
 				reason = "getAssetIdentifierUsed"
 				return
@@ -58,26 +58,26 @@ export async function jsGetRequestedAssetsFromCode(
 
 			// we don't know what this call to getAsset is requesting
 			if (result === false) {
-				asset_urls = false
+				requestedEmbeds = false
 				path.stop()
 				reason = "getAssetDynamicURL"
 				return
 			}
 
-			if (asset_urls === false) {
+			if (requestedEmbeds === false) {
 				throw new Error(`Shouldn't be able to be here.`)
 			}
 
-			if (asset_urls === null) {
-				asset_urls = []
+			if (requestedEmbeds === null) {
+				requestedEmbeds = []
 			}
 
-			asset_urls.push(result)
+			requestedEmbeds.push(result)
 		}
 	})
 
 	// no assets were used
-	if (asset_urls === null) {
+	if (requestedEmbeds === null) {
 		return {
 			used: false,
 			assets: null
@@ -86,7 +86,7 @@ export async function jsGetRequestedAssetsFromCode(
 
 	// we know assets were used but don't know
 	// which ones (worst case)
-	if (asset_urls === false) {
+	if (requestedEmbeds === false) {
 		return {
 			used: true,
 			assets: "unknown",
@@ -96,6 +96,6 @@ export async function jsGetRequestedAssetsFromCode(
 
 	return {
 		used: true,
-		assets: asset_urls
+		assets: requestedEmbeds
 	}
 }
