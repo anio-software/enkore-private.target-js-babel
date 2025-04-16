@@ -13,6 +13,7 @@ export default createConfig({
 			},
 			externalPackages: [
 				"@babel/core",
+				"@babel/traverse",
 				"@babel/preset-typescript"
 			]
 		})
