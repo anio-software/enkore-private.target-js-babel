@@ -1,8 +1,8 @@
 const fourtune_assets_module = "@fourtune/realm-js/v0/assets"
 
 export function pathResolvesToFourtuneGetAssetExport(
-	path : any, binding_name : string
-) : boolean|"unknown" {
+	path: any, binding_name: string
+): boolean|"unknown" {
 	const binding = path.scope.getBinding(binding_name)
 
 	if (!binding) return false

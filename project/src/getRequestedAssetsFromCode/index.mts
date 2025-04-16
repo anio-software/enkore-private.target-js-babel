@@ -16,17 +16,17 @@ import {pathResolvesToFourtuneGetAssetExport} from "./pathResolvesToFourtuneGetA
 import {processCallExpression} from "./processCallExpression.mts"
 
 export async function jsGetRequestedAssetsFromCode(
-	code : string
-) : Promise<JsGetRequestedAssetsFromCodeResult> {
-	let asset_urls : false|JsParseAssetURLResult[]|null = null
-	let reason : JsGetRequestedAssetsFromCodeReason = "unknown"
+	code: string
+): Promise<JsGetRequestedAssetsFromCodeResult> {
+	let asset_urls: false|JsParseAssetURLResult[]|null = null
+	let reason: JsGetRequestedAssetsFromCodeReason = "unknown"
 
 	const ast = parse(code, {
 		sourceType: "module"
 	})
 
 	traverse(ast, {
-		Identifier(path : any) {
+		Identifier(path: any) {
 			const binding_name = path.node.name
 
 			const tmp = pathResolvesToFourtuneGetAssetExport(path, binding_name)
