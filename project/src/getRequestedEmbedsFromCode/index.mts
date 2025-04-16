@@ -15,6 +15,7 @@ import {pathResolvesToGetEmbedExport} from "./pathResolvesToGetEmbedExport.mts"
 import {processCallExpression} from "./processCallExpression.mts"
 
 export async function getRequestedEmbedsFromCode(
+	enkoreProjectModuleSpecifiers: string[],
 	code: string
 ): Promise<RequestedEmbedsFromCodeResult> {
 	let requestedEmbeds: false|string[]|null = null
@@ -28,7 +29,11 @@ export async function getRequestedEmbedsFromCode(
 		Identifier(path: any) {
 			const bindingName = path.node.name
 
-			const tmp = pathResolvesToGetEmbedExport(path, bindingName)
+			const tmp = pathResolvesToGetEmbedExport(
+				enkoreProjectModuleSpecifiers,
+				path,
+				bindingName
+			)
 
 			if (tmp === false) {
 				return

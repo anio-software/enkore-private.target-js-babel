@@ -1,20 +1,5 @@
-const enkoreProjectModuleSpecifiers = [
-	"@enkore-target/js-none/project",
-	"@enkore-target/js-node/project",
-	"@enkore-target/js-web/project"
-]
-
-function isEnkoreProjectModuleSpecifier(str: string): boolean {
-	for (const specifier of enkoreProjectModuleSpecifiers) {
-		if (str === specifier) {
-			return true
-		}
-	}
-
-	return false
-}
-
 export function pathResolvesToGetEmbedExport(
+	enkoreProjectModuleSpecifiers: string[],
 	path: any,
 	bindingName: string
 ): boolean|"unknown" {
@@ -65,4 +50,14 @@ export function pathResolvesToGetEmbedExport(
 	}
 
 	return false
+
+	function isEnkoreProjectModuleSpecifier(str: string): boolean {
+		for (const specifier of enkoreProjectModuleSpecifiers) {
+			if (str === specifier) {
+				return true
+			}
+		}
+
+		return false
+	}
 }
