@@ -11,20 +11,20 @@ export function pathResolvesToFourtuneGetAssetExport(
 	if (binding.kind !== "module") return false
 
 	// access the module node
-	const module_node = binding.path.parentPath.node
+	const moduleNode = binding.path.parentPath.node
 
 	//
 	// check if this is a call to getAsset()
 	// from @fourtune/realm-js/assets
 	//
-	for (const specifier of module_node.specifiers) {
+	for (const specifier of moduleNode.specifiers) {
 		// ignore default imports
 		if (specifier.type === "ImportDefaultSpecifier") {
 			continue
 		}
 		// handle star imports
 		if (specifier.type === "ImportNamespaceSpecifier") {
-			if (module_node.source.value === fourtune_assets_module) {
+			if (moduleNode.source.value === fourtune_assets_module) {
 				return "unknown"
 			}
 
@@ -42,7 +42,7 @@ export function pathResolvesToFourtuneGetAssetExport(
 
 		if (
 			specifier.imported.name === "getAsset" &&
-			module_node.source.value === fourtune_assets_module
+			moduleNode.source.value === fourtune_assets_module
 		) {
 			return true
 		}
