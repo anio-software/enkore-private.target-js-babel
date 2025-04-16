@@ -14,7 +14,7 @@ import type {
 import {pathResolvesToFourtuneGetAssetExport} from "./pathResolvesToFourtuneGetAssetExport.mts"
 import {processCallExpression} from "./processCallExpression.mts"
 
-export async function jsGetRequestedAssetsFromCode(
+export async function getRequestedEmbedsFromCode(
 	code: string
 ): Promise<RequestedEmbedsFromCodeResult> {
 	let requestedEmbeds: false|string[]|null = null
