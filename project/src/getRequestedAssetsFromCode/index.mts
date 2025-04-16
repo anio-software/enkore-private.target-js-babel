@@ -40,22 +40,22 @@ export async function jsGetRequestedAssetsFromCode(
 				return
 			}
 
-			const parent_path = path.parentPath
+			const parentPath = path.parentPath
 
-			if (parent_path.node.type === "ImportSpecifier") {
+			if (parentPath.node.type === "ImportSpecifier") {
 				return
 			}
 
 			// getAsset was used, we just don't know how
 			// this is the worst case
-			if (parent_path.node.type !== "CallExpression") {
+			if (parentPath.node.type !== "CallExpression") {
 				asset_urls = false
 				path.stop()
 				reason = "getAssetIdentifierUsed"
 				return
 			}
 
-			const result = processCallExpression(parent_path)
+			const result = processCallExpression(parentPath)
 
 			// we don't know what this call to getAsset is requesting
 			if (result === false) {
