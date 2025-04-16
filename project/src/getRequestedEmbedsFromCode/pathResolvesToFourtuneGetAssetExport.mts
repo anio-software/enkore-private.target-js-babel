@@ -1,5 +1,7 @@
 const enkoreProjectModuleSpecifiers = [
-	"@fourtune/realm-js/v0/assets"
+	"@enkore-target/js-none/project",
+	"@enkore-target/js-node/project",
+	"@enkore-target/js-web/project"
 ]
 
 function resolvesToEnkoreProjectModuleSpecifier(
