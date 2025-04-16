@@ -4,9 +4,7 @@ const enkoreProjectModuleSpecifiers = [
 	"@enkore-target/js-web/project"
 ]
 
-function isEnkoreProjectModuleSpecifier(
-	str: string
-): boolean {
+function isEnkoreProjectModuleSpecifier(str: string): boolean {
 	for (const specifier of enkoreProjectModuleSpecifiers) {
 		if (str === specifier) {
 			return true
