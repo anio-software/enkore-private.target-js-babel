@@ -4,7 +4,7 @@ const enkoreProjectModuleSpecifiers = [
 	"@enkore-target/js-web/project"
 ]
 
-function resolvesToEnkoreProjectModuleSpecifier(
+function isEnkoreProjectModuleSpecifier(
 	str: string
 ): boolean {
 	for (const specifier of enkoreProjectModuleSpecifiers) {
@@ -40,7 +40,7 @@ export function pathResolvesToFourtuneGetAssetExport(
 		}
 		// handle star imports
 		if (specifier.type === "ImportNamespaceSpecifier") {
-			if (resolvesToEnkoreProjectModuleSpecifier(moduleNode.source.value)) {
+			if (isEnkoreProjectModuleSpecifier(moduleNode.source.value)) {
 				return "unknown"
 			}
 
@@ -58,7 +58,7 @@ export function pathResolvesToFourtuneGetAssetExport(
 
 		if (
 			specifier.imported.name === "getAsset" &&
-			resolvesToEnkoreProjectModuleSpecifier(moduleNode.source.value)
+			isEnkoreProjectModuleSpecifier(moduleNode.source.value)
 		) {
 			return true
 		}
