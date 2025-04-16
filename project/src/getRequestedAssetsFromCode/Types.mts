@@ -1,14 +1,3 @@
-export type JsAssetURLProtocol = "text" | "js-bundle"
-
-export type JsParseAssetURLResult = {
-	protocol: JsAssetURLProtocol,
-	path: string
-}
-
-export type JsParseAssetURL = (
-	url : string
-) => JsParseAssetURLResult
-
 export type JsGetRequestedAssetsFromCodeReason =
 	"unknown" |
 	"starImportUsed" |
@@ -20,7 +9,7 @@ export type JsGetRequestedAssetsFromCodeResult = {
 	assets: null
 } | {
 	used: true,
-	assets: JsParseAssetURLResult[]
+	assets: string[]
 } | {
 	used: true,
 	assets: "unknown",

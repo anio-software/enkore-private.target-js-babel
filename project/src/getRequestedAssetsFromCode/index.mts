@@ -7,7 +7,6 @@ import {parse} from "@babel/core"
 const traverse = _traverse.default
 
 import type {
-	JsParseAssetURLResult,
 	JsGetRequestedAssetsFromCodeResult,
 	JsGetRequestedAssetsFromCodeReason
 } from "./Types.mts"
@@ -18,7 +17,7 @@ import {processCallExpression} from "./processCallExpression.mts"
 export async function jsGetRequestedAssetsFromCode(
 	code: string
 ): Promise<JsGetRequestedAssetsFromCodeResult> {
-	let asset_urls: false|JsParseAssetURLResult[]|null = null
+	let asset_urls: false|string[]|null = null
 	let reason: JsGetRequestedAssetsFromCodeReason = "unknown"
 
 	const ast = parse(code, {
