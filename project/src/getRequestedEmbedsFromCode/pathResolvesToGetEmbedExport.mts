@@ -15,7 +15,8 @@ function isEnkoreProjectModuleSpecifier(str: string): boolean {
 }
 
 export function pathResolvesToGetEmbedExport(
-	path: any, bindingName: string
+	path: any,
+	bindingName: string
 ): boolean|"unknown" {
 	const binding = path.scope.getBinding(bindingName)
 
