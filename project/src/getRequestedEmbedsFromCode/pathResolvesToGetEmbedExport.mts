@@ -29,7 +29,7 @@ export function pathResolvesToGetEmbedExport(
 
 	//
 	// check if this is a call to getEmbed()
-	// from @fourtune/realm-js/assets
+	// from @enkore-target/js-XXX/project
 	//
 	for (const specifier of moduleNode.specifiers) {
 		// ignore default imports
