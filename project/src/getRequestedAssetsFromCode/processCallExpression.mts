@@ -1,5 +1,4 @@
-import {jsParseAssetURL} from "../parseAssetURL.mjs"
-import type {JsParseAssetURLResult} from "@fourtune/types/base-realm-js-and-web/v0/"
+import type {JsParseAssetURLResult} from "./Types.mts"
 
 export function processCallExpression(
 	path : any
@@ -16,5 +15,5 @@ export function processCallExpression(
 		return false
 	}
 
-	return jsParseAssetURL(url_param.value)
+	return url_param.value
 }

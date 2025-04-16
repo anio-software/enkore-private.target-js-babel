@@ -10,10 +10,10 @@ import type {
 	JsParseAssetURLResult,
 	JsGetRequestedAssetsFromCodeResult,
 	JsGetRequestedAssetsFromCodeReason
-} from "@fourtune/types/base-realm-js-and-web/v0/"
+} from "./Types.mts"
 
-import {pathResolvesToFourtuneGetAssetExport} from "./pathResolvesToFourtuneGetAssetExport.mjs"
-import {processCallExpression} from "./processCallExpression.mjs"
+import {pathResolvesToFourtuneGetAssetExport} from "./pathResolvesToFourtuneGetAssetExport.mts"
+import {processCallExpression} from "./processCallExpression.mts"
 
 export async function jsGetRequestedAssetsFromCode(
 	code : string
