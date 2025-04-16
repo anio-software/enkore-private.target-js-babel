@@ -11,7 +11,7 @@ import type {
 	ReasonWhyUnknown
 } from "./Types.mts"
 
-import {pathResolvesToFourtuneGetAssetExport} from "./pathResolvesToFourtuneGetAssetExport.mts"
+import {pathResolvesToGetEmbedExport} from "./pathResolvesToGetEmbedExport.mts"
 import {processCallExpression} from "./processCallExpression.mts"
 
 export async function getRequestedEmbedsFromCode(
@@ -28,7 +28,7 @@ export async function getRequestedEmbedsFromCode(
 		Identifier(path: any) {
 			const bindingName = path.node.name
 
-			const tmp = pathResolvesToFourtuneGetAssetExport(path, bindingName)
+			const tmp = pathResolvesToGetEmbedExport(path, bindingName)
 
 			if (tmp === false) {
 				return

@@ -14,7 +14,7 @@ function isEnkoreProjectModuleSpecifier(str: string): boolean {
 	return false
 }
 
-export function pathResolvesToFourtuneGetAssetExport(
+export function pathResolvesToGetEmbedExport(
 	path: any, bindingName: string
 ): boolean|"unknown" {
 	const binding = path.scope.getBinding(bindingName)
