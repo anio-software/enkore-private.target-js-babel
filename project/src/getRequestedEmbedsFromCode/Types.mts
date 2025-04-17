@@ -4,13 +4,13 @@ export type ReasonWhyUnknown = "unknown"                |
                                "getEmbedDynamicURL"
 
 export type RequestedEmbedsFromCodeResult = {
-	codeRequestsEmbeds: false,
+	codeRequestsEmbeds: false
 	requestedEmbeds: null
 } | {
-	codeRequestsEmbeds: true,
+	codeRequestsEmbeds: true
 	requestedEmbeds: string[]
 } | {
-	codeRequestsEmbeds: true,
-	requestedEmbeds: "unknown",
+	codeRequestsEmbeds: true
+	requestedEmbeds: "unknown"
 	reasonWhyUnknown: ReasonWhyUnknown
 }
