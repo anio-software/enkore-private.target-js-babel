@@ -8,6 +8,7 @@ const traverse = _traverse.default
 
 import type {
 	RequestedEmbedsFromCodeResult,
+	RequestedEmbed,
 	ReasonWhyUnknown
 } from "./Types.mts"
 
@@ -19,7 +20,7 @@ export async function getRequestedEmbedsFromCode(
 	enkoreProjectModuleGetEmbedProperties: string[],
 	code: string
 ): Promise<RequestedEmbedsFromCodeResult> {
-	let requestedEmbeds: false|string[]|null = null
+	let requestedEmbeds: false|RequestedEmbed[]|null = null
 	let reasonWhyUnknown: ReasonWhyUnknown = "unknown"
 
 	const ast = parse(code, {
@@ -79,7 +80,10 @@ export async function getRequestedEmbedsFromCode(
 				requestedEmbeds = []
 			}
 
-			requestedEmbeds.push(result)
+			requestedEmbeds.push({
+				embedPath: result,
+				requestedByMethod: tmp.methodUsed
+			})
 		}
 	})
 

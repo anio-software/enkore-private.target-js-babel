@@ -13,7 +13,7 @@ export type RequestedEmbedsFromCodeResult = {
 	requestedEmbeds: null
 } | {
 	codeRequestsEmbeds: true
-	requestedEmbeds: string[]
+	requestedEmbeds: RequestedEmbed[]
 } | {
 	codeRequestsEmbeds: true
 	requestedEmbeds: "unknown"
