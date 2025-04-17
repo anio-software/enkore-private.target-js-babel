@@ -1,4 +1,6 @@
-type Ret = boolean | "unknownUsage"
+type Ret = {
+	methodUsed: string
+} | false | "unknownUsage"
 
 export function pathResolvesToGetEmbedExport(
 	enkoreProjectModuleSpecifiers: string[],
@@ -47,7 +49,7 @@ export function pathResolvesToGetEmbedExport(
 			enkoreProjectModuleGetEmbedProperties.includes(specifier.imported.name) &&
 			isEnkoreProjectModuleSpecifier(moduleNode.source.value)
 		) {
-			return true
+			return {methodUsed: specifier.imported.name}
 		}
 	}
 
