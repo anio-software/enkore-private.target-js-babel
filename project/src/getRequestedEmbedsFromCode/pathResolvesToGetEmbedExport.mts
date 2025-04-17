@@ -1,9 +1,11 @@
+type Ret = boolean | "unknown"
+
 export function pathResolvesToGetEmbedExport(
 	enkoreProjectModuleSpecifiers: string[],
 	enkoreProjectModuleGetEmbedProperties: string[],
 	path: any,
 	bindingName: string
-): boolean|"unknown" {
+): Ret {
 	const binding = path.scope.getBinding(bindingName)
 
 	if (!binding) return false
