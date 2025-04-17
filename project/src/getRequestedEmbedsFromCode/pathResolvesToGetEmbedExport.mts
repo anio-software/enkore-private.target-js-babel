@@ -1,4 +1,4 @@
-type Ret = boolean | "unknown"
+type Ret = boolean | "unknownUsage"
 
 export function pathResolvesToGetEmbedExport(
 	enkoreProjectModuleSpecifiers: string[],
@@ -28,7 +28,7 @@ export function pathResolvesToGetEmbedExport(
 		// handle star imports
 		if (specifier.type === "ImportNamespaceSpecifier") {
 			if (isEnkoreProjectModuleSpecifier(moduleNode.source.value)) {
-				return "unknown"
+				return "unknownUsage"
 			}
 
 			continue

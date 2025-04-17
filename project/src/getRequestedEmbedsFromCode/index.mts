@@ -39,7 +39,7 @@ export async function getRequestedEmbedsFromCode(
 
 			if (tmp === false) {
 				return
-			} else if (tmp === "unknown") {
+			} else if (tmp === "unknownUsage") {
 				requestedEmbeds = false
 				path.stop()
 				reasonWhyUnknown = "starImportUsed"
