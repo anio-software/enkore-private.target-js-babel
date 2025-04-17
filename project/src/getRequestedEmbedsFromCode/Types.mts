@@ -3,6 +3,11 @@ export type ReasonWhyUnknown = "unknown"                |
                                "getEmbedIdentifierUsed" |
                                "getEmbedDynamicURL"
 
+export type RequestedEmbed = {
+	embedPath: string
+	requestedByMethod: string
+}
+
 export type RequestedEmbedsFromCodeResult = {
 	codeRequestsEmbeds: false
 	requestedEmbeds: null
