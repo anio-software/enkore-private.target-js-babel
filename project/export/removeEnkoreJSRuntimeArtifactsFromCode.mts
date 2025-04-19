@@ -139,8 +139,15 @@ export function removeEnkoreJSRuntimeArtifactsFromCode(
 
 			for (const prop of path.node.arguments[2].properties) {
 				if (prop.type !== "ObjectProperty") continue
-				if (prop.key.type !== "Identifier") continue
-				if (prop.key.name !== "value") continue
+
+				if (prop.key.type === "Identifier") {
+					if (prop.key.name !== "value") continue
+				} else if (prop.key.type === "StringLiteral") {
+					if (prop.key.value !== "value") continue
+				} else {
+					continue
+				}
+
 				if (prop.value.type !== "ArrayExpression") continue
 
 				if (prop.value.elements.length === 0) {
