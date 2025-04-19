@@ -50,12 +50,12 @@ export function getAndRemoveEnkoreJSRuntimeGlobalDataStringFromCode(
 	code: string
 ): {
 	code: string
-	globalDataStrings: string[]
+	globalData: unknown[]
 } {
 	const symbolForIdentifier = "@enkore/target-js-factory/globalData"
 	const initMethodName = "__initEnkoreJSRuntimeGlobalData"
 
-	const globalDataStrings: string[] = []
+	const globalData: unknown[] = []
 
 	const ast = parseSync(code, {
 		sourceType: "module"
@@ -107,8 +107,8 @@ export function getAndRemoveEnkoreJSRuntimeGlobalDataStringFromCode(
 				return
 			}
 
-			globalDataStrings.push(
-				path.node.expression.arguments[0].arguments[0].arguments[0].value
+			globalData.push(
+				JSON.parse(path.node.expression.arguments[0].arguments[0].arguments[0].value)
 			)
 
 			path.remove()
@@ -154,6 +154,6 @@ export function getAndRemoveEnkoreJSRuntimeGlobalDataStringFromCode(
 
 	return {
 		code: generate(ast).code,
-		globalDataStrings
+		globalData
 	}
 }
