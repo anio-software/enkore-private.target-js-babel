@@ -16,7 +16,7 @@ export function defineEnkoreJSRuntimeGlobalData(
 
 	code += `
 // from mdn: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
-globalThis.${freezeObjectMethodName} = function(object) {
+;globalThis.${freezeObjectMethodName} = function(object) {
 	// Retrieve the property names defined on object
 	const propNames = Reflect.ownKeys(object);
 
@@ -34,7 +34,7 @@ globalThis.${freezeObjectMethodName} = function(object) {
 	}
 
 	return Object.freeze(object);
-}
+};
 `
 
 	code += `if (!(${sym} in globalThis)) {\n`
@@ -47,7 +47,7 @@ globalThis.${freezeObjectMethodName} = function(object) {
 	code += `);\n`
 	code += `}\n`
 
-	code += `globalThis[${sym}].push(`
+	code += `;globalThis[${sym}].push(`
 	code += `globalThis.${freezeObjectMethodName}(`
 	code += `JSON.parse(`
 	code += JSON.stringify(JSON.stringify(data))
