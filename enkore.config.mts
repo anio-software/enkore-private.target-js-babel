@@ -14,6 +14,7 @@ export default createConfig({
 			externalPackages: [
 				"@babel/core",
 				"@babel/traverse",
+				"@babel/generator",
 				"@babel/preset-typescript"
 			]
 		})
