@@ -50,7 +50,7 @@ const symbolForIdentifier = "@enkore/target-js-factory/globalData"
 const freezeObjectMethodName = "__enkoreJSRuntimeFreezeObject"
 const initMethodName = "__initEnkoreJSRuntime"
 
-export function getAndRemoveEnkoreJSRuntimeGlobalDataStringFromCode(
+export function removeEnkoreJSRuntimeArtifactsFromCode(
 	code: string
 ): {
 	code: string
