@@ -48,6 +48,7 @@ function isMemberExpression(
 
 const symbolForIdentifier = "@enkore/target-js-factory/globalData"
 const freezeObjectMethodName = "__enkoreJSRuntimeFreezeObject"
+const initMethodName = "__initEnkoreJSRuntime"
 
 function defineGlobalData(data: Record<any, any>): string {
 	const sym = `Symbol.for("${symbolForIdentifier}")`
