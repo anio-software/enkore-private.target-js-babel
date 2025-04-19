@@ -1,10 +1,21 @@
 import {parseSync} from "@babel/core"
 import _traverse from "@babel/traverse"
 import {generate} from "@babel/generator"
-import type {Node, MemberExpression} from "@babel/types"
+import type {Node, MemberExpression, Identifier} from "@babel/types"
 
 // see https://github.com/babel/babel/issues/13855
 const traverse = _traverse.default
+
+function isIdentifier(
+	node: Node,
+	identifier: string
+): node is Identifier {
+	if (node.type !== "Identifier") {
+		return false
+	}
+
+	return node.name === identifier
+}
 
 function isMemberExpression(
 	node: Node,
@@ -43,9 +54,7 @@ export function getAndRemoveEnkoreJSRuntimeGlobalProjectEmbedMapsStringFromCode(
 				return false
 			} else if (path.node.arguments.length !== 3) {
 				return
-			} else if (path.node.arguments[0].type !== "Identifier") {
-				return
-			} else if (path.node.arguments[0].name !== "globalThis") {
+			} else if (!isIdentifier(path.node.arguments[0], "globalThis")) {
 				return
 			} else if (path.node.arguments[1].type !== "CallExpression") {
 				return
