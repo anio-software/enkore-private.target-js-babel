@@ -47,7 +47,7 @@ function isMemberExpression(
 }
 
 const symbolForIdentifier = "@enkore/target-js-factory/globalData"
-const initMethodName = "__initEnkoreJSRuntimeGlobalData"
+const freezeObjectMethodName = "__initEnkoreJSRuntimeGlobalData"
 
 export function getAndRemoveEnkoreJSRuntimeGlobalDataStringFromCode(
 	code: string
@@ -63,7 +63,7 @@ export function getAndRemoveEnkoreJSRuntimeGlobalDataStringFromCode(
 
 	traverse(ast, {
 		AssignmentExpression(path) {
-			if (!isMemberExpression(path.node.left, "globalThis", initMethodName)) {
+			if (!isMemberExpression(path.node.left, "globalThis", freezeObjectMethodName)) {
 				return
 			}
 
@@ -93,7 +93,7 @@ export function getAndRemoveEnkoreJSRuntimeGlobalDataStringFromCode(
 				return
 			} else if (path.node.expression.arguments[0].type !== "CallExpression") {
 				return
-			} else if (!isMemberExpression(path.node.expression.arguments[0].callee, "globalThis", initMethodName)) {
+			} else if (!isMemberExpression(path.node.expression.arguments[0].callee, "globalThis", freezeObjectMethodName)) {
 				return
 			} else if (path.node.expression.arguments[0].arguments.length !== 1) {
 				return
