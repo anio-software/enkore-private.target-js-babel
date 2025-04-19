@@ -54,6 +54,8 @@ export function getAndRemoveEnkoreJSRuntimeGlobalProjectEmbedMapsStringFromCode(
 				return
 			}
 
+			let pushedValue: boolean = false
+
 			for (const prop of path.node.arguments[2].properties) {
 				if (prop.type !== "ObjectProperty") continue
 				if (prop.key.type !== "Identifier") continue
@@ -73,6 +75,12 @@ export function getAndRemoveEnkoreJSRuntimeGlobalProjectEmbedMapsStringFromCode(
 				if (callExpr.arguments[0].type !== "StringLiteral") continue
 
 				globalProjectEmbedMaps.push(callExpr.arguments[0].value)
+
+				pushedValue = true
+			}
+
+			if (!pushedValue) {
+				throw new Error(`Should not be able to get here! Means call to Object.defineProperty is wrong.`)
 			}
 
 			path.remove()
