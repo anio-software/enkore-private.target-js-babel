@@ -46,7 +46,7 @@ function isMemberExpression(
 	return node.property.name === propertyIdentifier
 }
 
-export function getAndRemoveEnkoreJSRuntimeGlobalProjectEmbedMapsStringFromCode(
+export function getAndRemoveEnkoreJSRuntimeGlobalDataStringFromCode(
 	symbolForIdentifier: string,
 	initMethodName: string,
 	code: string
