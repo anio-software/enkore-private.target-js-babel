@@ -19,24 +19,24 @@ export function pathResolvesToGetEmbedExport(
 	if (!binding.path.parentPath) return false
 
 	// access the module node
-	const moduleNode = binding.path.parentPath.node
+	const importDeclaration = binding.path.parentPath.node
 
 	//
 	// check if this is a call to getEmbed()
 	// from @enkore-target/js-XXX/project
 	//
-	if (moduleNode.type !== "ImportDeclaration") {
+	if (importDeclaration.type !== "ImportDeclaration") {
 		return false
 	}
 
-	for (const specifier of moduleNode.specifiers) {
+	for (const specifier of importDeclaration.specifiers) {
 		// ignore default imports
 		if (specifier.type === "ImportDefaultSpecifier") {
 			continue
 		}
 		// handle star imports
 		if (specifier.type === "ImportNamespaceSpecifier") {
-			if (isEnkoreProjectModuleSpecifier(moduleNode.source.value)) {
+			if (isEnkoreProjectModuleSpecifier(importDeclaration.source.value)) {
 				return "unknownUsage"
 			}
 
@@ -56,7 +56,7 @@ export function pathResolvesToGetEmbedExport(
 
 		if (
 			enkoreProjectModuleGetEmbedProperties.includes(specifier.imported.name) &&
-			isEnkoreProjectModuleSpecifier(moduleNode.source.value)
+			isEnkoreProjectModuleSpecifier(importDeclaration.source.value)
 		) {
 			return {methodUsed: specifier.imported.name}
 		}
