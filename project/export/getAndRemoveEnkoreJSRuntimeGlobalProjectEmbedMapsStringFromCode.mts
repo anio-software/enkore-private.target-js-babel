@@ -1,9 +1,28 @@
 import {parseSync} from "@babel/core"
 import _traverse from "@babel/traverse"
 import {generate} from "@babel/generator"
+import type {Node, MemberExpression} from "@babel/types"
 
 // see https://github.com/babel/babel/issues/13855
 const traverse = _traverse.default
+
+function isMemberExpression(
+	node: Node,
+	objectIdentifier: string,
+	propertyIdentifier: string
+): node is MemberExpression {
+	if (node.type !== "MemberExpression") {
+		return false
+	} else if (node.object.type !== "Identifier") {
+		return false
+	} else if (node.property.type !== "Identifier") {
+		return false
+	} else if (node.object.name !== objectIdentifier) {
+		return false
+	}
+
+	return node.property.name === propertyIdentifier
+}
 
 export function getAndRemoveEnkoreJSRuntimeGlobalProjectEmbedMapsStringFromCode(
 	symbolForIdentifier: string,
@@ -20,16 +39,8 @@ export function getAndRemoveEnkoreJSRuntimeGlobalProjectEmbedMapsStringFromCode(
 
 	traverse(ast, {
 		CallExpression(path) {
-			if (path.node.callee.type !== "MemberExpression") {
-				return
-			} else if (path.node.callee.object.type !== "Identifier") {
-				return
-			} else if (path.node.callee.property.type !== "Identifier") {
-				return
-			} else if (path.node.callee.object.name !== "Object") {
-				return
-			} else if (path.node.callee.property.name !== "defineProperty") {
-				return
+			if (!isMemberExpression(path.node.callee, "Object", "defineProperty")) {
+				return false
 			} else if (path.node.arguments.length !== 3) {
 				return
 			} else if (path.node.arguments[0].type !== "Identifier") {
@@ -38,16 +49,8 @@ export function getAndRemoveEnkoreJSRuntimeGlobalProjectEmbedMapsStringFromCode(
 				return
 			} else if (path.node.arguments[1].type !== "CallExpression") {
 				return
-			} else if (path.node.arguments[1].callee.type !== "MemberExpression") {
-				return
-			} else if (path.node.arguments[1].callee.object.type !== "Identifier") {
-				return
-			} else if (path.node.arguments[1].callee.property.type !== "Identifier") {
-				return
-			} else if (path.node.arguments[1].callee.object.name !== "Symbol") {
-				return
-			} else if (path.node.arguments[1].callee.property.name !== "for") {
-				return
+			} else if (!isMemberExpression(path.node.arguments[1].callee, "Symbol", "for")) {
+				return false
 			} else if (path.node.arguments[1].arguments.length !== 1) {
 				return
 			} else if (path.node.arguments[1].arguments[0].type !== "StringLiteral") {
@@ -68,21 +71,17 @@ export function getAndRemoveEnkoreJSRuntimeGlobalProjectEmbedMapsStringFromCode(
 
 				const callExpr = prop.value
 
-				if (callExpr.callee.type !== "MemberExpression") continue
-				if (callExpr.callee.object.type !== "Identifier") continue
-				if (callExpr.callee.property.type !== "Identifier") continue
-
-				if (callExpr.callee.object.name !== "globalThis") continue
-				if (callExpr.callee.property.name !== "__enkoreFreezeEmbedMap") continue
+				if (!isMemberExpression(callExpr.callee, "globalThis", "__enkoreFreezeEmbedMap")) {
+					continue
+				}
 
 				if (callExpr.arguments.length !== 1) continue
 				if (callExpr.arguments[0].type !== "CallExpression") continue
 
-				if (callExpr.arguments[0].callee.type !== "MemberExpression") continue
-				if (callExpr.arguments[0].callee.object.type !== "Identifier") continue
-				if (callExpr.arguments[0].callee.property.type !== "Identifier") continue
-				if (callExpr.arguments[0].callee.object.name !== "JSON") continue
-				if (callExpr.arguments[0].callee.property.name !== "parse") continue
+				if (!isMemberExpression(callExpr.arguments[0].callee, "JSON", "parse")) {
+					continue
+				}
+
 				if (callExpr.arguments[0].arguments.length !== 1) continue
 				if (callExpr.arguments[0].arguments[0].type !== "StringLiteral") continue
 
