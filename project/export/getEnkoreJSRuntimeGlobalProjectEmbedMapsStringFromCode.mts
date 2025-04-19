@@ -9,11 +9,11 @@ export function getEnkoreJSRuntimeGlobalProjectEmbedMapsStringFromCode(
 	code: string
 ): {
 	ast: ParseResult
-	globalProjectEmbedMap: string|undefined
+	globalProjectEmbedMaps: string[]
 } {
 	const embedMarkerUUID = enkoreJSRuntimeGlobalProjectEmbedMapUUID
 
-	let globalProjectEmbedMap: string|undefined = undefined
+	const globalProjectEmbedMaps: string[] = []
 
 	const ast = parseSync(code, {
 		sourceType: "module"
@@ -24,16 +24,13 @@ export function getEnkoreJSRuntimeGlobalProjectEmbedMapsStringFromCode(
 			const value = path.node.value
 
 			if (value.startsWith(embedMarkerUUID)) {
-				globalProjectEmbedMap = value.slice(embedMarkerUUID.length)
-
-				// stop traversal
-				path.stop()
+				globalProjectEmbedMaps.push(value.slice(embedMarkerUUID.length))
 			}
 		}
 	})
 
 	return {
 		ast,
-		globalProjectEmbedMap
+		globalProjectEmbedMaps
 	}
 }
