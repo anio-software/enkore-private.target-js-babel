@@ -1,6 +1,11 @@
 import {parseSync} from "@babel/core"
 import _traverse from "@babel/traverse"
 import {generate} from "@babel/generator"
+import {
+	symbolForIdentifier,
+	freezeObjectMethodName,
+	initMethodName
+} from "#~src/constants.mts"
 import type {Node, MemberExpression, Identifier, StringLiteral} from "@babel/types"
 
 // see https://github.com/babel/babel/issues/13855
@@ -45,10 +50,6 @@ function isMemberExpression(
 
 	return node.property.name === propertyIdentifier
 }
-
-const symbolForIdentifier = "@enkore/target-js-factory/globalData"
-const freezeObjectMethodName = "__enkoreJSRuntimeFreezeObject"
-const initMethodName = "__initEnkoreJSRuntime"
 
 export function removeEnkoreJSRuntimeArtifactsFromCode(
 	code: string
