@@ -60,6 +60,14 @@ export function getAndRemoveEnkoreJSRuntimeGlobalProjectEmbedMapsStringFromCode(
 	})!
 
 	traverse(ast, {
+		AssignmentExpression(path) {
+			if (!isMemberExpression(path.node.left, "globalThis", "__enkoreFreezeEmbedMap")) {
+				return
+			}
+
+			path.remove()
+		},
+
 		CallExpression(path) {
 			if (!isMemberExpression(path.node.callee, "Object", "defineProperty")) {
 				return
