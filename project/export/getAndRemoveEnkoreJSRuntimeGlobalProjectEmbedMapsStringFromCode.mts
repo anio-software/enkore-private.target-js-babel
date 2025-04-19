@@ -72,13 +72,21 @@ export function getAndRemoveEnkoreJSRuntimeGlobalProjectEmbedMapsStringFromCode(
 				if (callExpr.callee.object.type !== "Identifier") continue
 				if (callExpr.callee.property.type !== "Identifier") continue
 
-				if (callExpr.callee.object.name !== "JSON") continue
-				if (callExpr.callee.property.name !== "parse") continue
+				if (callExpr.callee.object.name !== "Object") continue
+				if (callExpr.callee.property.name !== "freeze") continue
 
 				if (callExpr.arguments.length !== 1) continue
-				if (callExpr.arguments[0].type !== "StringLiteral") continue
+				if (callExpr.arguments[0].type !== "CallExpression") continue
 
-				globalProjectEmbedMaps.push(callExpr.arguments[0].value)
+				if (callExpr.arguments[0].callee.type !== "MemberExpression") continue
+				if (callExpr.arguments[0].callee.object.type !== "Identifier") continue
+				if (callExpr.arguments[0].callee.property.type !== "Identifier") continue
+				if (callExpr.arguments[0].callee.object.name !== "JSON") continue
+				if (callExpr.arguments[0].callee.property.name !== "parse") continue
+				if (callExpr.arguments[0].arguments.length !== 1) continue
+				if (callExpr.arguments[0].arguments[0].type !== "StringLiteral") continue
+
+				globalProjectEmbedMaps.push(callExpr.arguments[0].arguments[0].value)
 
 				pushedValues++;
 			}
