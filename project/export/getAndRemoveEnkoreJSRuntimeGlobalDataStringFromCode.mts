@@ -46,15 +46,15 @@ function isMemberExpression(
 	return node.property.name === propertyIdentifier
 }
 
+const symbolForIdentifier = "@enkore/target-js-factory/globalData"
+const initMethodName = "__initEnkoreJSRuntimeGlobalData"
+
 export function getAndRemoveEnkoreJSRuntimeGlobalDataStringFromCode(
 	code: string
 ): {
 	code: string
 	globalData: unknown[]
 } {
-	const symbolForIdentifier = "@enkore/target-js-factory/globalData"
-	const initMethodName = "__initEnkoreJSRuntimeGlobalData"
-
 	const globalData: unknown[] = []
 
 	const ast = parseSync(code, {
