@@ -3,6 +3,10 @@ import {
 	freezeObjectMethodName
 } from "#~src/constants.mts"
 
+//
+// todo: give each global data a unique id
+// this way we can ensure that this global data is only initialized once
+//
 export function defineEnkoreJSRuntimeGlobalData(
 	data: Record<any, any>
 ): string {
