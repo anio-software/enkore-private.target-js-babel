@@ -52,13 +52,9 @@ export function getAndRemoveEnkoreJSRuntimeGlobalProjectEmbedMapsStringFromCode(
 				return
 			} else if (path.node.arguments[1].arguments[0].type !== "StringLiteral") {
 				return
-			}
-
-			if (path.node.arguments[1].arguments[0].value !== symbolForIdentifier) {
+			} else if (path.node.arguments[1].arguments[0].value !== symbolForIdentifier) {
 				return
-			}
-
-			if (path.node.arguments[2].type !== "ObjectExpression") {
+			} else if (path.node.arguments[2].type !== "ObjectExpression") {
 				return
 			}
 
