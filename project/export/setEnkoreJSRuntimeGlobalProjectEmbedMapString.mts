@@ -6,7 +6,7 @@ import {generate} from "@babel/generator"
 // see https://github.com/babel/babel/issues/13855
 const traverse = _traverse.default
 
-export function updateEnkoreJSRuntimeGlobalProjectEmbedMapString(
+export function setEnkoreJSRuntimeGlobalProjectEmbedMapString(
 	ast: ParseResult,
 	newGlobalProjectEmbedMap: string
 ): string {
