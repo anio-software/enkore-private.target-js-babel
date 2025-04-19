@@ -72,8 +72,8 @@ export function getAndRemoveEnkoreJSRuntimeGlobalProjectEmbedMapsStringFromCode(
 				if (callExpr.callee.object.type !== "Identifier") continue
 				if (callExpr.callee.property.type !== "Identifier") continue
 
-				if (callExpr.callee.object.name !== "Object") continue
-				if (callExpr.callee.property.name !== "freeze") continue
+				if (callExpr.callee.object.name !== "globalThis") continue
+				if (callExpr.callee.property.name !== "__enkoreFreezeEmbedMap") continue
 
 				if (callExpr.arguments.length !== 1) continue
 				if (callExpr.arguments[0].type !== "CallExpression") continue
