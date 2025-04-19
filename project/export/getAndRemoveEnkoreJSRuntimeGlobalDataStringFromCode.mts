@@ -110,11 +110,9 @@ export function getAndRemoveEnkoreJSRuntimeGlobalDataStringFromCode(
 
 	traverse(ast, {
 		AssignmentExpression(path) {
-			if (!isMemberExpression(path.node.left, "globalThis", freezeObjectMethodName)) {
-				return
+			if (isMemberExpression(path.node.left, "globalThis", freezeObjectMethodName)) {
+				path.remove()
 			}
-
-			path.remove()
 		},
 
 		ExpressionStatement(path) {
