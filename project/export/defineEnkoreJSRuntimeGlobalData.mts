@@ -1,6 +1,7 @@
 import {
 	symbolForIdentifier,
-	freezeObjectMethodName
+	freezeObjectMethodName,
+	freezeDataMethodName
 } from "#~src/constants.mts"
 
 //
@@ -35,6 +36,13 @@ export function defineEnkoreJSRuntimeGlobalData(
 
 	return Object.freeze(object);
 };
+
+;globalThis.${freezeDataMethodName} = function(data) {
+	return {
+		immutable: globalThis.${freezeObjectMethodName}(data.immutable),
+		mutable: data.mutable
+	}
+};
 `
 
 	code += `if (!(${sym} in globalThis)) {\n`
@@ -48,7 +56,7 @@ export function defineEnkoreJSRuntimeGlobalData(
 	code += `}\n`
 
 	code += `;globalThis[${sym}].push(`
-	code += `globalThis.${freezeObjectMethodName}(`
+	code += `globalThis.${freezeDataMethodName}(`
 	code += `JSON.parse(`
 	code += JSON.stringify(JSON.stringify(data))
 	code += `)));\n`
