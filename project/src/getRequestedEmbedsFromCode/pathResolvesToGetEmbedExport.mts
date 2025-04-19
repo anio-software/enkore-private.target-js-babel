@@ -1,3 +1,5 @@
+import type {NodePath} from "@babel/traverse"
+
 type Ret = {
 	methodUsed: string
 } | false | "unknownUsage"
@@ -5,7 +7,7 @@ type Ret = {
 export function pathResolvesToGetEmbedExport(
 	enkoreProjectModuleSpecifiers: string[],
 	enkoreProjectModuleGetEmbedProperties: string[],
-	path: any,
+	path: NodePath,
 	bindingName: string
 ): Ret {
 	const binding = path.scope.getBinding(bindingName)
@@ -14,6 +16,7 @@ export function pathResolvesToGetEmbedExport(
 
 	// we are only interested in module bindings
 	if (binding.kind !== "module") return false
+	if (!binding.path.parentPath) return false
 
 	// access the module node
 	const moduleNode = binding.path.parentPath.node
@@ -22,6 +25,10 @@ export function pathResolvesToGetEmbedExport(
 	// check if this is a call to getEmbed()
 	// from @enkore-target/js-XXX/project
 	//
+	if (moduleNode.type !== "ImportDeclaration") {
+		return false
+	}
+
 	for (const specifier of moduleNode.specifiers) {
 		// ignore default imports
 		if (specifier.type === "ImportDefaultSpecifier") {
@@ -44,6 +51,8 @@ export function pathResolvesToGetEmbedExport(
 		) {
 			continue
 		}
+
+		if (specifier.imported.type !== "Identifier") continue
 
 		if (
 			enkoreProjectModuleGetEmbedProperties.includes(specifier.imported.name) &&
