@@ -47,13 +47,14 @@ function isMemberExpression(
 }
 
 export function getAndRemoveEnkoreJSRuntimeGlobalDataStringFromCode(
-	symbolForIdentifier: string,
-	initMethodName: string,
 	code: string
 ): {
 	code: string
 	globalProjectEmbedMaps: string[]
 } {
+	const symbolForIdentifier = "@enkore/target-js-factory/globalData"
+	const initMethodName = "__initEnkoreJSRuntimeGlobalData"
+
 	const globalProjectEmbedMaps: string[] = []
 
 	const ast = parseSync(code, {
