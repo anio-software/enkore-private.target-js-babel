@@ -50,59 +50,11 @@ const symbolForIdentifier = "@enkore/target-js-factory/globalData"
 const freezeObjectMethodName = "__enkoreJSRuntimeFreezeObject"
 const initMethodName = "__initEnkoreJSRuntime"
 
-function defineGlobalData(data: Record<any, any>): string {
-	const sym = `Symbol.for("${symbolForIdentifier}")`
-
-	let code = ``
-
-	code += `
-// from mdn: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
-globalThis.${freezeObjectMethodName} = function(object) {
-	// Retrieve the property names defined on object
-	const propNames = Reflect.ownKeys(object);
-
-	// Freeze properties before freezing self
-	for (const name of propNames) {
-		const value = object[name];
-
-		if (typeof value === "function") {
-			throw new Error("Unexpected function in freeze object function.")
-		}
-
-		if ((value && typeof value === "object")) {
-			globalThis.${freezeObjectMethodName}(value);
-		}
-	}
-
-	return Object.freeze(object);
-}
-`
-
-	code += `if (!(${sym} in globalThis)) {\n`
-	code += `\tObject.defineProperty(globalThis, ${sym},`
-	code += JSON.stringify({
-		writable: false,
-		configurable: false,
-		value: []
-	})
-	code += `);\n`
-	code += `}\n`
-
-	code += `globalThis[${sym}].push(`
-	code += `globalThis.${freezeObjectMethodName}(`
-	code += `JSON.parse(`
-	code += JSON.stringify(JSON.stringify(data))
-	code += `)));\n`
-
-	return code
-}
-
 export function getAndRemoveEnkoreJSRuntimeGlobalDataStringFromCode(
 	code: string
 ): {
 	code: string
 	globalData: unknown[]
-	defineGlobalData: (data: Record<any, any>) => string
 } {
 	const globalData: unknown[] = []
 
@@ -203,7 +155,6 @@ export function getAndRemoveEnkoreJSRuntimeGlobalDataStringFromCode(
 
 	return {
 		code: generate(ast).code,
-		globalData,
-		defineGlobalData
+		globalData
 	}
 }
