@@ -1,6 +1,4 @@
-// @ts-ignore:next-line
 import _traverse from "@babel/traverse"
-// @ts-ignore:next-line
 import {parse} from "@babel/core"
 
 // see https://github.com/babel/babel/issues/13855
@@ -25,7 +23,7 @@ export async function getRequestedEmbedsFromCode(
 
 	const ast = parse(code, {
 		sourceType: "module"
-	})
+	})!
 
 	traverse(ast, {
 		Identifier(path: any) {

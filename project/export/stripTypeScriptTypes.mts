@@ -1,4 +1,3 @@
-// @ts-ignore:next-line
 import babel from "@babel/core"
 // @ts-ignore:next-line
 import presetTypeScript from "@babel/preset-typescript"
@@ -31,5 +30,5 @@ export function stripTypeScriptTypes(
 
 	const result = babel.transformSync(code, options)
 
-	return result.code
+	return result!.code!
 }
