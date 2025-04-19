@@ -69,6 +69,50 @@ export function getAndRemoveEnkoreJSRuntimeGlobalProjectEmbedMapsStringFromCode(
 			path.remove()
 		},
 
+		ExpressionStatement(path) {
+			if (path.node.expression.type !== "CallExpression") {
+				return
+			} else if (path.node.expression.callee.type !== "MemberExpression") {
+				return
+			} else if (!isIdentifier(path.node.expression.callee.property, "push")) {
+				return
+			} else if (path.node.expression.callee.object.type !== "MemberExpression") {
+				return
+			} else if (!isIdentifier(path.node.expression.callee.object.object, "globalThis")) {
+				return
+			} else if (path.node.expression.callee.object.property.type !== "CallExpression") {
+				return
+			} else if (!isMemberExpression(path.node.expression.callee.object.property.callee, "Symbol", "for")) {
+				return
+			} else if (path.node.expression.callee.object.property.arguments.length !== 1) {
+				return
+			} else if (!isStringLiteral(path.node.expression.callee.object.property.arguments[0], symbolForIdentifier)) {
+				return
+			} else if (path.node.expression.arguments.length !== 1) {
+				return
+			} else if (path.node.expression.arguments[0].type !== "CallExpression") {
+				return
+			} else if (!isMemberExpression(path.node.expression.arguments[0].callee, "globalThis", initMethodName)) {
+				return
+			} else if (path.node.expression.arguments[0].arguments.length !== 1) {
+				return
+			} else if (path.node.expression.arguments[0].arguments[0].type !== "CallExpression") {
+				return
+			} else if (!isMemberExpression(path.node.expression.arguments[0].arguments[0].callee, "JSON", "parse")) {
+				return
+			} else if (path.node.expression.arguments[0].arguments[0].arguments.length !== 1) {
+				return
+			} else if (path.node.expression.arguments[0].arguments[0].arguments[0].type !== "StringLiteral") {
+				return
+			}
+
+			globalProjectEmbedMaps.push(
+				path.node.expression.arguments[0].arguments[0].arguments[0].value
+			)
+
+			path.remove()
+		},
+
 		CallExpression(path) {
 			if (!isMemberExpression(path.node.callee, "Object", "defineProperty")) {
 				return
@@ -88,40 +132,22 @@ export function getAndRemoveEnkoreJSRuntimeGlobalProjectEmbedMapsStringFromCode(
 				return
 			}
 
-			let pushedValues: number = 0
+			let remove: boolean = false
 
 			for (const prop of path.node.arguments[2].properties) {
 				if (prop.type !== "ObjectProperty") continue
 				if (prop.key.type !== "Identifier") continue
 				if (prop.key.name !== "value") continue
-				if (prop.value.type !== "CallExpression") continue
+				if (prop.value.type !== "ArrayExpression") continue
 
-				const callExpr = prop.value
-
-				if (!isMemberExpression(callExpr.callee, "globalThis", initMethodName)) {
-					continue
+				if (prop.value.elements.length === 0) {
+					remove = true
 				}
-
-				if (callExpr.arguments.length !== 1) continue
-				if (callExpr.arguments[0].type !== "CallExpression") continue
-
-				if (!isMemberExpression(callExpr.arguments[0].callee, "JSON", "parse")) {
-					continue
-				}
-
-				if (callExpr.arguments[0].arguments.length !== 1) continue
-				if (callExpr.arguments[0].arguments[0].type !== "StringLiteral") continue
-
-				globalProjectEmbedMaps.push(callExpr.arguments[0].arguments[0].value)
-
-				pushedValues++;
 			}
 
-			if (pushedValues !== 1) {
-				throw new Error(`Should not be able to get here! Means call to Object.defineProperty is wrong.`)
+			if (remove) {
+				path.remove()
 			}
-
-			path.remove()
 		}
 	})
 
