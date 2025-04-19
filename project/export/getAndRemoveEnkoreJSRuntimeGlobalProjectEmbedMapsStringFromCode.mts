@@ -51,7 +51,7 @@ export function getAndRemoveEnkoreJSRuntimeGlobalProjectEmbedMapsStringFromCode(
 	traverse(ast, {
 		CallExpression(path) {
 			if (!isMemberExpression(path.node.callee, "Object", "defineProperty")) {
-				return false
+				return
 			} else if (path.node.arguments.length !== 3) {
 				return
 			} else if (!isIdentifier(path.node.arguments[0], "globalThis")) {
@@ -59,7 +59,7 @@ export function getAndRemoveEnkoreJSRuntimeGlobalProjectEmbedMapsStringFromCode(
 			} else if (path.node.arguments[1].type !== "CallExpression") {
 				return
 			} else if (!isMemberExpression(path.node.arguments[1].callee, "Symbol", "for")) {
-				return false
+				return
 			} else if (path.node.arguments[1].arguments.length !== 1) {
 				return
 			} else if (path.node.arguments[1].arguments[0].type !== "StringLiteral") {
