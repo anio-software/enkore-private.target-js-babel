@@ -1,7 +1,7 @@
 import {parseSync} from "@babel/core"
 import _traverse from "@babel/traverse"
 import {generate} from "@babel/generator"
-import type {Node, MemberExpression, Identifier} from "@babel/types"
+import type {Node, MemberExpression, Identifier, StringLiteral} from "@babel/types"
 
 // see https://github.com/babel/babel/issues/13855
 const traverse = _traverse.default
@@ -15,6 +15,17 @@ function isIdentifier(
 	}
 
 	return node.name === identifier
+}
+
+function isStringLiteral(
+	node: Node,
+	value: string
+): node is StringLiteral {
+	if (node.type !== "StringLiteral") {
+		return false
+	}
+
+	return node.value === value
 }
 
 function isMemberExpression(
@@ -62,9 +73,7 @@ export function getAndRemoveEnkoreJSRuntimeGlobalProjectEmbedMapsStringFromCode(
 				return
 			} else if (path.node.arguments[1].arguments.length !== 1) {
 				return
-			} else if (path.node.arguments[1].arguments[0].type !== "StringLiteral") {
-				return
-			} else if (path.node.arguments[1].arguments[0].value !== symbolForIdentifier) {
+			} else if (!isStringLiteral(path.node.arguments[1].arguments[0], symbolForIdentifier)) {
 				return
 			} else if (path.node.arguments[2].type !== "ObjectExpression") {
 				return
