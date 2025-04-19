@@ -55,8 +55,9 @@ function defineGlobalData(data: Record<any, any>): string {
 
 	let code = ``
 
-	// from mdn: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
-	code += `globalThis.${freezeObjectMethodName} = function(object) {
+	code += `
+// from mdn: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
+globalThis.${freezeObjectMethodName} = function(object) {
 	// Retrieve the property names defined on object
 	const propNames = Reflect.ownKeys(object);
 
