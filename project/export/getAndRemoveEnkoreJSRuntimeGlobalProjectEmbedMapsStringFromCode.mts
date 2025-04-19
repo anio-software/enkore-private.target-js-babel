@@ -48,6 +48,7 @@ function isMemberExpression(
 
 export function getAndRemoveEnkoreJSRuntimeGlobalProjectEmbedMapsStringFromCode(
 	symbolForIdentifier: string,
+	initMethodName: string,
 	code: string
 ): {
 	code: string
@@ -61,7 +62,7 @@ export function getAndRemoveEnkoreJSRuntimeGlobalProjectEmbedMapsStringFromCode(
 
 	traverse(ast, {
 		AssignmentExpression(path) {
-			if (!isMemberExpression(path.node.left, "globalThis", "__enkoreFreezeEmbedMap")) {
+			if (!isMemberExpression(path.node.left, "globalThis", initMethodName)) {
 				return
 			}
 
@@ -97,7 +98,7 @@ export function getAndRemoveEnkoreJSRuntimeGlobalProjectEmbedMapsStringFromCode(
 
 				const callExpr = prop.value
 
-				if (!isMemberExpression(callExpr.callee, "globalThis", "__enkoreFreezeEmbedMap")) {
+				if (!isMemberExpression(callExpr.callee, "globalThis", initMethodName)) {
 					continue
 				}
 
