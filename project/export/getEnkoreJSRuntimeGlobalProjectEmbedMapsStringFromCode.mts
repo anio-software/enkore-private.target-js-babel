@@ -5,7 +5,7 @@ import {enkoreJSRuntimeGlobalProjectEmbedMapUUID} from "@enkore/spec/uuid"
 // see https://github.com/babel/babel/issues/13855
 const traverse = _traverse.default
 
-export function getEnkoreJSRuntimeGlobalProjectEmbedMapStringFromCode(
+export function getEnkoreJSRuntimeGlobalProjectEmbedMapsStringFromCode(
 	code: string
 ): {
 	ast: ParseResult
