@@ -19,58 +19,61 @@ export function getAndRemoveEnkoreJSRuntimeGlobalProjectEmbedMapsStringFromCode(
 	})!
 
 	traverse(ast, {
-		AssignmentExpression(path) {
-			if (path.node.left.type !== "MemberExpression") {
+		CallExpression(path) {
+			if (path.node.callee.type !== "MemberExpression") {
 				return
-			} else if (path.node.left.object.type !== "Identifier") {
+			} else if (path.node.callee.object.type !== "Identifier") {
 				return
-			} else if (path.node.left.object.name !== "globalThis") {
+			} else if (path.node.callee.property.type !== "Identifier") {
 				return
-			} else if (path.node.left.property.type !== "CallExpression") {
+			} else if (path.node.arguments.length !== 3) {
 				return
-			} else if (path.node.left.property.callee.type !== "MemberExpression") {
+			} else if (path.node.arguments[0].type !== "Identifier") {
 				return
-			} else if (path.node.left.property.callee.object.type !== "Identifier") {
+			} else if (path.node.arguments[0].name !== "globalThis") {
 				return
-			} else if (path.node.left.property.callee.property.type !== "Identifier") {
+			} else if (path.node.arguments[1].type !== "CallExpression") {
 				return
-			} else if (path.node.left.property.arguments.length !== 1) {
+			} else if (path.node.arguments[1].callee.type !== "MemberExpression") {
 				return
-			} else if (path.node.left.property.arguments[0].type !== "StringLiteral") {
+			} else if (path.node.arguments[1].callee.object.type !== "Identifier") {
 				return
-			}
-
-			if (path.node.left.property.callee.object.name !== "Symbol") {
+			} else if (path.node.arguments[1].callee.property.type !== "Identifier") {
 				return
-			} else if (path.node.left.property.callee.property.name !== "for") {
+			} else if (path.node.arguments[1].arguments.length !== 1) {
 				return
-			}
-
-			if (path.node.left.property.arguments[0].value !== symbolForIdentifier) {
+			} else if (path.node.arguments[1].arguments[0].type !== "StringLiteral") {
 				return
 			}
 
-			if (path.node.right.type !== "CallExpression") {
-				return
-			} else if (path.node.right.callee.type !== "MemberExpression") {
-				return
-			} else if (path.node.right.callee.object.type !== "Identifier") {
-				return
-			} else if (path.node.right.callee.property.type !== "Identifier") {
-				return
-			} else if (path.node.right.arguments.length !== 1) {
-				return
-			} else if (path.node.right.arguments[0].type !== "StringLiteral") {
+			if (path.node.arguments[1].arguments[0].value !== symbolForIdentifier) {
 				return
 			}
 
-			if (path.node.right.callee.object.name !== "JSON") {
-				return
-			} else if (path.node.right.callee.property.name !== "parse") {
+			if (path.node.arguments[2].type !== "ObjectExpression") {
 				return
 			}
 
-			globalProjectEmbedMaps.push(path.node.right.arguments[0].value)
+			for (const prop of path.node.arguments[2].properties) {
+				if (prop.type !== "ObjectProperty") continue
+				if (prop.key.type !== "Identifier") continue
+				if (prop.key.name !== "value") continue
+				if (prop.value.type !== "CallExpression") continue
+
+				const callExpr = prop.value
+
+				if (callExpr.callee.type !== "MemberExpression") continue
+				if (callExpr.callee.object.type !== "Identifier") continue
+				if (callExpr.callee.property.type !== "Identifier") continue
+
+				if (callExpr.callee.object.name !== "JSON") continue
+				if (callExpr.callee.property.name !== "parse") continue
+
+				if (callExpr.arguments.length !== 1) continue
+				if (callExpr.arguments[0].type !== "StringLiteral") continue
+
+				globalProjectEmbedMaps.push(callExpr.arguments[0].value)
+			}
 
 			path.remove()
 		}
