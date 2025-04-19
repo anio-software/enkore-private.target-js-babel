@@ -1,3 +1,4 @@
+import type {Node, MemberExpression, Identifier, StringLiteral} from "@babel/types"
 import {parseSync} from "@babel/core"
 import _traverse from "@babel/traverse"
 import {generate} from "@babel/generator"
@@ -6,7 +7,6 @@ import {
 	freezeObjectMethodName,
 	initMethodName
 } from "#~src/constants.mts"
-import type {Node, MemberExpression, Identifier, StringLiteral} from "@babel/types"
 
 // see https://github.com/babel/babel/issues/13855
 const traverse = _traverse.default
