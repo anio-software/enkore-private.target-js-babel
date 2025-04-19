@@ -26,7 +26,7 @@ export async function getRequestedEmbedsFromCode(
 	})!
 
 	traverse(ast, {
-		Identifier(path: any) {
+		Identifier(path) {
 			const bindingName = path.node.name
 
 			const tmp = pathResolvesToGetEmbedExport(
