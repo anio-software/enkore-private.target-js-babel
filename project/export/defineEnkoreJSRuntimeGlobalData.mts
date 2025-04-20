@@ -38,10 +38,11 @@ export function defineEnkoreJSRuntimeGlobalData(
 };
 
 ;globalThis.${freezeDataMethodName} = function(data) {
-	return {
-		immutable: globalThis.${freezeObjectMethodName}(data.immutable),
-		mutable: data.mutable
-	}
+	const clonedData = globalThis.structuredClone(data);
+
+	globalThis.${freezeObjectMethodName}(clonedData.immutable);
+
+	return clonedData;
 };
 `
 
