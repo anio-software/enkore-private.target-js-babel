@@ -38,15 +38,15 @@ globalThis.${initMethodName} = function ${initMethodName}() {
 	// in a bundle, the number of records should be exactly **one**.
 	//
 	for (const record of runtimeGlobalDataRecords) {
-		const {projectId} = record.immutable
+		const {globalDataRecordId} = record.immutable
 
-		if (initializedGlobalRecords.has(projectId)) {
-			console.log("already initialized global record with projectId", projectId)
+		if (initializedGlobalRecords.has(globalDataRecordId)) {
+			console.log("already initialized global record with id", globalDataRecordId)
 
 			continue
 		}
 
-		initializedGlobalRecords.set(projectId, true)
+		initializedGlobalRecords.set(globalDataRecordId, true)
 
 		doRuntimeInit(record)
 	}
