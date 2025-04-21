@@ -57,9 +57,9 @@ export function removeEnkoreJSRuntimeArtifactsFromCode(
 	code: string
 ): {
 	code: string
-	globalData: EnkoreJSRuntimeGlobalDataRecord[]
+	globalDataRecords: EnkoreJSRuntimeGlobalDataRecord[]
 } {
-	const globalData: EnkoreJSRuntimeGlobalDataRecord[] = []
+	const globalDataRecords: EnkoreJSRuntimeGlobalDataRecord[] = []
 
 	const ast = parseSync(code, {
 		sourceType: "module"
@@ -113,7 +113,7 @@ export function removeEnkoreJSRuntimeArtifactsFromCode(
 				return
 			}
 
-			globalData.push(
+			globalDataRecords.push(
 				JSON.parse(path.node.expression.arguments[0].arguments[0].arguments[0].value)
 			)
 
@@ -148,6 +148,6 @@ export function removeEnkoreJSRuntimeArtifactsFromCode(
 
 	return {
 		code: generate(ast).code,
-		globalData
+		globalDataRecords
 	}
 }
