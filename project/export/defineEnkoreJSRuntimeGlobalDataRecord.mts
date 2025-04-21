@@ -1,7 +1,7 @@
 import {
 	symbolForIdentifier,
 	freezeObjectMethodName,
-	freezeDataMethodName
+	freezeGlobalDataRecordMethodName
 } from "#~src/constants.mts"
 
 import type {EnkoreJSRuntimeGlobalDataRecord} from "@enkore/spec"
@@ -39,7 +39,7 @@ export function defineEnkoreJSRuntimeGlobalDataRecord(
 	return Object.freeze(object);
 };
 
-;globalThis.${freezeDataMethodName} = function(data) {
+;globalThis.${freezeGlobalDataRecordMethodName} = function(data) {
 	const clonedData = globalThis.structuredClone(data);
 
 	globalThis.${freezeObjectMethodName}(clonedData.immutable);
@@ -59,7 +59,7 @@ export function defineEnkoreJSRuntimeGlobalDataRecord(
 	code += `}\n`
 
 	code += `;globalThis[${sym}].push(`
-	code += `globalThis.${freezeDataMethodName}(`
+	code += `globalThis.${freezeGlobalDataRecordMethodName}(`
 	code += `JSON.parse(`
 	code += JSON.stringify(JSON.stringify(record))
 	code += `)));\n`

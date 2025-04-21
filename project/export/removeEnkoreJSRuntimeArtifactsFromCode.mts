@@ -5,7 +5,7 @@ import {generate} from "@babel/generator"
 import {
 	symbolForIdentifier,
 	freezeObjectMethodName,
-	freezeDataMethodName,
+	freezeGlobalDataRecordMethodName,
 	initMethodName
 } from "#~src/constants.mts"
 
@@ -70,7 +70,7 @@ export function removeEnkoreJSRuntimeArtifactsFromCode(
 				path.remove()
 			} else if (isMemberExpression(path.node.left, "globalThis", initMethodName)) {
 				path.remove()
-			} else if (isMemberExpression(path.node.left, "globalThis", freezeDataMethodName)) {
+			} else if (isMemberExpression(path.node.left, "globalThis", freezeGlobalDataRecordMethodName)) {
 				path.remove()
 			}
 		},
@@ -98,7 +98,7 @@ export function removeEnkoreJSRuntimeArtifactsFromCode(
 				return
 			} else if (path.node.expression.arguments[0].type !== "CallExpression") {
 				return
-			} else if (!isMemberExpression(path.node.expression.arguments[0].callee, "globalThis", freezeDataMethodName)) {
+			} else if (!isMemberExpression(path.node.expression.arguments[0].callee, "globalThis", freezeGlobalDataRecordMethodName)) {
 				return
 			} else if (path.node.expression.arguments[0].arguments.length !== 1) {
 				return
