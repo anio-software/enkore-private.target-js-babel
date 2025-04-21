@@ -8,6 +8,7 @@ import {
 	freezeGlobalDataRecordMethodName,
 	initMethodName
 } from "#~src/constants.mts"
+import type {EnkoreJSRuntimeGlobalDataRecord} from "@enkore/spec"
 
 // see https://github.com/babel/babel/issues/13855
 const traverse = _traverse.default
@@ -56,9 +57,9 @@ export function removeEnkoreJSRuntimeArtifactsFromCode(
 	code: string
 ): {
 	code: string
-	globalData: unknown[]
+	globalData: EnkoreJSRuntimeGlobalDataRecord[]
 } {
-	const globalData: unknown[] = []
+	const globalData: EnkoreJSRuntimeGlobalDataRecord[] = []
 
 	const ast = parseSync(code, {
 		sourceType: "module"
