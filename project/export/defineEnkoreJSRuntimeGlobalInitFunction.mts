@@ -21,9 +21,7 @@ globalThis.${initMethodName} = function ${initMethodName}() {
 
 	//
 	// loop over all global data records
-	// in a bundle, this will always be executed **once**
-	// when running code with node, this will lead to some records
-	// to be initialized multiple times
+	// in a bundle, the number of records should be exactly **one**.
 	//
 	for (const record of runtimeGlobalDataRecords) {
 		doRuntimeInit(record)
