@@ -8,7 +8,7 @@ import {
 // todo: give each global data a unique id
 // this way we can ensure that this global data is only initialized once
 //
-export function defineEnkoreJSRuntimeGlobalData(
+export function defineEnkoreJSRuntimeGlobalDataRecord(
 	data: Record<any, any>
 ): string {
 	const sym = `Symbol.for("${symbolForIdentifier}")`
