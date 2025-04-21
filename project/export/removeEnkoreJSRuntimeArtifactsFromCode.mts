@@ -113,6 +113,7 @@ export function removeEnkoreJSRuntimeArtifactsFromCode(
 				return
 			}
 
+			// todo: could check for "isEntityOfKind" from @enkore/spec
 			globalDataRecords.push(
 				JSON.parse(path.node.expression.arguments[0].arguments[0].arguments[0].value)
 			)
