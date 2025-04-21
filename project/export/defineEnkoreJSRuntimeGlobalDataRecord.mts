@@ -4,12 +4,14 @@ import {
 	freezeDataMethodName
 } from "#~src/constants.mts"
 
+import type {EnkoreJSRuntimeGlobalDataRecord} from "@enkore/spec"
+
 //
 // todo: give each global data a unique id
 // this way we can ensure that this global data is only initialized once
 //
 export function defineEnkoreJSRuntimeGlobalDataRecord(
-	data: Record<any, any>
+	record: EnkoreJSRuntimeGlobalDataRecord
 ): string {
 	const sym = `Symbol.for("${symbolForIdentifier}")`
 
@@ -59,7 +61,7 @@ export function defineEnkoreJSRuntimeGlobalDataRecord(
 	code += `;globalThis[${sym}].push(`
 	code += `globalThis.${freezeDataMethodName}(`
 	code += `JSON.parse(`
-	code += JSON.stringify(JSON.stringify(data))
+	code += JSON.stringify(JSON.stringify(record))
 	code += `)));\n`
 
 	return code
