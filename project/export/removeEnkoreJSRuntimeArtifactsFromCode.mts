@@ -119,6 +119,9 @@ export function removeEnkoreJSRuntimeArtifactsFromCode(
 			path.remove()
 		},
 
+		//
+		// remove "if (!(Symbol.for("@enkore/target-js-factory/globalData") in globalThis)) {}"
+		//
 		IfStatement(path) {
 			if (path.node.test.type !== "UnaryExpression") {
 				return
