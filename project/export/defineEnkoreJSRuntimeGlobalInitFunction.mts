@@ -13,20 +13,20 @@ export function defineEnkoreJSRuntimeGlobalInitFunction(
 
 	code += `
 globalThis.${initMethodName} = function ${initMethodName}() {
-	const __runtimeGlobalDataArray = globalThis[${sym}]
+	const __runtimeGlobalDataRecords = globalThis[${sym}]
 
-	if (!Array.isArray(__runtimeGlobalDataArray)) {
+	if (!Array.isArray(__runtimeGlobalDataRecords)) {
 		throw new Error(\`globalThis[${sym}] is not an array. This is a bug.\`)
 	}
 
 	//
-	// loop over all global data entries
+	// loop over all global data records
 	// in a bundle, this will always be executed **once**
-	// when running code with node, this will lead to some entries
+	// when running code with node, this will lead to some records
 	// to be initialized multiple times
 	//
-	for (const __data of __runtimeGlobalDataArray) {
-		doRuntimeInit(__data)
+	for (const record of __runtimeGlobalDataRecords) {
+		doRuntimeInit(record)
 	}
 
 	function doRuntimeInit(${fnRuntimeDataParamName}) {
