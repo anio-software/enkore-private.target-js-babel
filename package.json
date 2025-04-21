@@ -19,7 +19,7 @@
     "@babel/types": "^7.27.0",
     "@enkore-target/js-node": "^0.0.2",
     "@enkore/core": "^0.6.6",
-    "@enkore/spec": "^0.241.0",
+    "@enkore/spec": "^0.242.0",
     "@types/babel__core": "^7.20.5",
     "@types/babel__generator": "^7.27.0",
     "@types/babel__traverse": "^7.20.7",
