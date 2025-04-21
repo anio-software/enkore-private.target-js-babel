@@ -1,6 +1,6 @@
 import {
 	symbolForIdentifier,
-	freezeObjectMethodName,
+	freezeObjectHelperMethodName,
 	freezeGlobalDataRecordMethodName
 } from "#~src/constants.mts"
 
@@ -19,7 +19,7 @@ export function defineEnkoreJSRuntimeGlobalDataRecord(
 
 	code += `
 // from mdn: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
-;globalThis.${freezeObjectMethodName} = function(object) {
+;globalThis.${freezeObjectHelperMethodName} = function(object) {
 	// Retrieve the property names defined on object
 	const propNames = Reflect.ownKeys(object);
 
@@ -32,7 +32,7 @@ export function defineEnkoreJSRuntimeGlobalDataRecord(
 		}
 
 		if ((value && typeof value === "object")) {
-			globalThis.${freezeObjectMethodName}(value);
+			globalThis.${freezeObjectHelperMethodName}(value);
 		}
 	}
 
@@ -42,7 +42,7 @@ export function defineEnkoreJSRuntimeGlobalDataRecord(
 ;globalThis.${freezeGlobalDataRecordMethodName} = function(data) {
 	const clonedData = globalThis.structuredClone(data);
 
-	globalThis.${freezeObjectMethodName}(clonedData.immutable);
+	globalThis.${freezeObjectHelperMethodName}(clonedData.immutable);
 
 	return clonedData;
 };

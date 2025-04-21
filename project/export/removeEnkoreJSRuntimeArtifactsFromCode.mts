@@ -4,7 +4,7 @@ import _traverse from "@babel/traverse"
 import {generate} from "@babel/generator"
 import {
 	symbolForIdentifier,
-	freezeObjectMethodName,
+	freezeObjectHelperMethodName,
 	freezeGlobalDataRecordMethodName,
 	initMethodName
 } from "#~src/constants.mts"
@@ -66,7 +66,7 @@ export function removeEnkoreJSRuntimeArtifactsFromCode(
 
 	traverse(ast, {
 		AssignmentExpression(path) {
-			if (isMemberExpression(path.node.left, "globalThis", freezeObjectMethodName)) {
+			if (isMemberExpression(path.node.left, "globalThis", freezeObjectHelperMethodName)) {
 				path.remove()
 			} else if (isMemberExpression(path.node.left, "globalThis", initMethodName)) {
 				path.remove()
