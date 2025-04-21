@@ -119,48 +119,26 @@ export function removeEnkoreJSRuntimeArtifactsFromCode(
 			path.remove()
 		},
 
-		CallExpression(path) {
-			if (!isMemberExpression(path.node.callee, "Object", "defineProperty")) {
+		IfStatement(path) {
+			if (path.node.test.type !== "UnaryExpression") {
 				return
-			} else if (path.node.arguments.length !== 3) {
+			} else if (path.node.test.operator !== "!") {
 				return
-			} else if (!isIdentifier(path.node.arguments[0], "globalThis")) {
+			} else if (path.node.test.argument.type !== "BinaryExpression") {
 				return
-			} else if (path.node.arguments[1].type !== "CallExpression") {
+			} else if (path.node.test.argument.left.type !== "CallExpression") {
 				return
-			} else if (!isMemberExpression(path.node.arguments[1].callee, "Symbol", "for")) {
+			} else if (!isMemberExpression(path.node.test.argument.left.callee, "Symbol", "for")) {
 				return
-			} else if (path.node.arguments[1].arguments.length !== 1) {
+			} else if (path.node.test.argument.left.arguments.length !== 1) {
 				return
-			} else if (!isStringLiteral(path.node.arguments[1].arguments[0], symbolForIdentifier)) {
+			} else if (!isStringLiteral(path.node.test.argument.left.arguments[0], symbolForIdentifier)) {
 				return
-			} else if (path.node.arguments[2].type !== "ObjectExpression") {
+			} else if (!isIdentifier(path.node.test.argument.right, "globalThis")) {
 				return
 			}
 
-			let remove: boolean = false
-
-			for (const prop of path.node.arguments[2].properties) {
-				if (prop.type !== "ObjectProperty") continue
-
-				if (prop.key.type === "Identifier") {
-					if (prop.key.name !== "value") continue
-				} else if (prop.key.type === "StringLiteral") {
-					if (prop.key.value !== "value") continue
-				} else {
-					continue
-				}
-
-				if (prop.value.type !== "ArrayExpression") continue
-
-				if (prop.value.elements.length === 0) {
-					remove = true
-				}
-			}
-
-			if (remove) {
-				path.remove()
-			}
+			path.remove()
 		}
 	})
 
