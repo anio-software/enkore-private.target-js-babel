@@ -2,6 +2,7 @@ import {
 	symbolForIdentifier,
 	initMethodName
 } from "#~src/constants.mts"
+import {logCodeRaw} from "@enkore/debug"
 
 export function defineEnkoreJSRuntimeGlobalInitFunction(
 	fnRuntimeDataParamName: string,
@@ -41,7 +42,7 @@ globalThis.${initMethodName} = function ${initMethodName}() {
 		const {globalDataRecordId} = record.immutable
 
 		if (initializedGlobalRecords.has(globalDataRecordId)) {
-			console.log("already initialized global record with id", globalDataRecordId)
+			${logCodeRaw("`already initialized global record with id '${globalDataRecordId}'.`")}
 
 			continue
 		}
