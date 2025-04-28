@@ -8,9 +8,6 @@ export const config: unknown = createConfig({
 		name: "js-node",
 		options: createTargetJSNodeOptions({
 			publishWithExactDependencyVersions: true,
-			createTypesPackage: {
-				orgName: "@enkore-types"
-			},
 			externalPackages: [
 				"@babel/core",
 				"@babel/traverse",
