@@ -3,7 +3,7 @@ import {
 	createTargetJSNodeOptions
 } from "enkore/spec/factory"
 
-export default createConfig({
+export const config: unknown = createConfig({
 	target: {
 		name: "js-node",
 		options: createTargetJSNodeOptions({
