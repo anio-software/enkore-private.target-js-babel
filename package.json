@@ -20,7 +20,7 @@
     "@enkore-target/js-node": "^0.0.8",
     "@enkore/core": "^0.6.7",
     "@enkore/debug": "^0.0.2",
-    "@enkore/spec": "^0.243.0",
+    "@enkore/spec": "^0.244.0",
     "@types/babel__core": "^7.20.5",
     "@types/babel__generator": "^7.27.0",
     "@types/babel__traverse": "^7.20.7",
