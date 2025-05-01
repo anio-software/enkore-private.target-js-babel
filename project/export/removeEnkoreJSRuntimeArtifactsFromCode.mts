@@ -6,7 +6,8 @@ import {
 	symbolForIdentifier,
 	freezeObjectHelperMethodName,
 	freezeGlobalDataRecordMethodName,
-	initMethodName
+	initMethodName,
+	debugLogMethodName
 } from "#~src/constants.mts"
 import type {EnkoreJSRuntimeGlobalDataRecord} from "@enkore/spec"
 
@@ -72,6 +73,8 @@ export function removeEnkoreJSRuntimeArtifactsFromCode(
 			} else if (isMemberExpression(path.node.left, "globalThis", initMethodName)) {
 				path.remove()
 			} else if (isMemberExpression(path.node.left, "globalThis", freezeGlobalDataRecordMethodName)) {
+				path.remove()
+			} else if (isMemberExpression(path.node.left, "globalThis", debugLogMethodName)) {
 				path.remove()
 			}
 		},

@@ -1,6 +1,7 @@
 import {
 	symbolForIdentifier,
-	initMethodName
+	initMethodName,
+	debugLogMethodName
 } from "#~src/constants.mts"
 import {logCodeRaw} from "@enkore/debug"
 
@@ -13,6 +14,10 @@ export function defineEnkoreJSRuntimeGlobalInitFunction(
 	let code = ``
 
 	code += `
+globalThis.${debugLogMethodName} = function ${debugLogMethodName}(__msgToLog) {
+	${logCodeRaw("__msgToLog")}
+};
+
 globalThis.${initMethodName} = function ${initMethodName}() {
 	const runtimeGlobalDataRecords = globalThis[${sym}]
 
@@ -42,7 +47,9 @@ globalThis.${initMethodName} = function ${initMethodName}() {
 		const {globalDataRecordId} = record.immutable
 
 		if (initializedGlobalRecords.has(globalDataRecordId)) {
-			${logCodeRaw("`already initialized global record with id '${globalDataRecordId}'.`")}
+			globalThis.${debugLogMethodName}(
+				\`already initialized global record with id '\${globalDataRecordId}'.\`
+			)
 
 			continue
 		}
