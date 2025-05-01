@@ -7,7 +7,9 @@ export const config: unknown = createConfig({
 	target: {
 		name: "js-node",
 		options: createTargetJSNodeOptions({
-			publishWithExactDependencyVersions: true,
+			publish: {
+				withExactDependencyVersions: true
+			},
 			externalPackages: [
 				"@babel/core",
 				"@babel/traverse",
