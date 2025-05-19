@@ -1,7 +1,8 @@
 import {
 	symbolForIdentifier,
 	initMethodName,
-	debugLogMethodName
+	debugLogMethodName,
+	symbolForInitializedGlobalRecords
 } from "#~src/constants.mts"
 import {logCodeRaw} from "@enkore/debug"
 
@@ -25,7 +26,7 @@ globalThis.${initMethodName} = function ${initMethodName}() {
 		throw new Error(\`globalThis[${sym}] is not an array. This is a bug.\`)
 	}
 
-	const initializedGlobalRecordsKey = Symbol.for("@enkore/js-runtime/initializedGlobalRecords")
+	const initializedGlobalRecordsKey = Symbol.for("${symbolForInitializedGlobalRecords}")
 
 	if (!(initializedGlobalRecordsKey in globalThis)) {
 		Object.defineProperty(
