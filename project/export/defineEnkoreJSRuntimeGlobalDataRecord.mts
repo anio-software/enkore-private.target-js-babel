@@ -4,7 +4,7 @@ import {
 	freezeGlobalDataRecordMethodName
 } from "#~src/constants.mts"
 
-import type {EnkoreJSRuntimeGlobalDataRecord} from "@enkore/spec"
+import type {EnkoreJSRuntimeGlobalDataRecord} from "@anio-software/enkore.spec"
 
 //
 // todo: give each global data a unique id
