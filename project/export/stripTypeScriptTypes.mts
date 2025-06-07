@@ -14,9 +14,7 @@ export function stripTypeScriptTypes(
 	}: Options = {}
 ): string {
 	if (!filePath.endsWith(".mts")) {
-		throw new Error(
-			`File path must end with ".mts".`
-		)
+		throw new Error(`File path must end with ".mts".`)
 	}
 
 	const options = {

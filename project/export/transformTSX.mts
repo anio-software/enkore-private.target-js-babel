@@ -16,9 +16,7 @@ export function transformTSX(
 	}: Options = {}
 ): string {
 	if (!filePath.endsWith(".tsx")) {
-		throw new Error(
-			`File path must end with ".tsx".`
-		)
+		throw new Error(`File path must end with ".tsx".`)
 	}
 
 	const options = {
