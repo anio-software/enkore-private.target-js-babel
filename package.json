@@ -17,8 +17,8 @@
   },
   "devDependencies": {
     "@anio-software/enkore": "^0.0.52",
+    "@anio-software/enkore-private.spec": "^0.289.0",
     "@anio-software/enkore.core": "^0.9.2",
-    "@anio-software/enkore.spec": "^0.273.1",
     "@anio-software/enkore.target-js-node": "^0.0.29",
     "@babel/generator": "^7.27.0",
     "@babel/types": "^7.27.0",
