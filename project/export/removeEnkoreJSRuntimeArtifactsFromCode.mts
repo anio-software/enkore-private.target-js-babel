@@ -9,7 +9,7 @@ import {
 	initMethodName,
 	debugLogMethodName
 } from "#~src/constants.mts"
-import type {EnkoreJSRuntimeGlobalDataRecord} from "@anio-software/enkore.spec"
+import type {EnkoreJSRuntimeGlobalDataRecord} from "@anio-software/enkore-private.spec"
 
 // see https://github.com/babel/babel/issues/13855
 const traverse = _traverse.default
@@ -116,7 +116,7 @@ export function removeEnkoreJSRuntimeArtifactsFromCode(
 				return
 			}
 
-			// todo: could check for "isEntityOfKind" from @anio-software/enkore.spec
+			// todo: could check for "isEntityOfKind" from @anio-software/enkore-private.spec
 			globalDataRecords.push(
 				JSON.parse(path.node.expression.arguments[0].arguments[0].arguments[0].value)
 			)
