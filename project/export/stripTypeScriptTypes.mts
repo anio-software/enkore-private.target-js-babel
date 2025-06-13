@@ -13,8 +13,8 @@ export function stripTypeScriptTypes(
 		rewriteImportExtensions = true
 	}: Options = {}
 ): string {
-	if (!filePath.endsWith(".mts")) {
-		throw new Error(`File path must end with ".mts".`)
+	if (!filePath.endsWith(".mts") && !filePath.endsWith(".ts")) {
+		throw new Error(`File path must end with ".mts" or ".ts".`)
 	}
 
 	const options = {
