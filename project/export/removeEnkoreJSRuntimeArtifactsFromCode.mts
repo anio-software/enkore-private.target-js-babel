@@ -4,6 +4,7 @@ import _traverse from "@babel/traverse"
 import {generate} from "@babel/generator"
 import {
 	symbolForIdentifier,
+	nodeCommonJSRequire,
 	freezeObjectHelperMethodName,
 	freezeGlobalDataRecordMethodName,
 	initMethodName,
@@ -75,6 +76,8 @@ export function removeEnkoreJSRuntimeArtifactsFromCode(
 			} else if (isMemberExpression(path.node.left, "globalThis", freezeGlobalDataRecordMethodName)) {
 				path.remove()
 			} else if (isMemberExpression(path.node.left, "globalThis", debugLogMethodName)) {
+				path.remove()
+			} else if (isMemberExpression(path.node.left, "globalThis", nodeCommonJSRequire)) {
 				path.remove()
 			}
 		},

@@ -1,4 +1,5 @@
 import {
+	nodeCommonJSRequire,
 	symbolForIdentifier,
 	initMethodName,
 	debugLogMethodName,
@@ -8,6 +9,7 @@ import {logCodeRaw} from "@enkore/debug"
 
 export function defineEnkoreJSRuntimeGlobalInitFunction(
 	fnRuntimeDataParamName: string,
+	fnNodeCommonJSRequireParamName: string,
 	fnBody: string,
 ): string {
 	const sym = `Symbol.for("${symbolForIdentifier}")`
@@ -15,6 +17,16 @@ export function defineEnkoreJSRuntimeGlobalInitFunction(
 	let code = ``
 
 	code += `
+globalThis.${nodeCommonJSRequire} = await (async () => {
+	try {
+		const {default: nodeModule} = await import("node:module")
+
+		return nodeModule.createRequire(import.meta.url)
+	} catch {
+		return undefined
+	}
+})();
+
 globalThis.${debugLogMethodName} = function ${debugLogMethodName}(__msgToLog) {
 	${logCodeRaw("__msgToLog")}
 };
@@ -57,10 +69,12 @@ globalThis.${initMethodName} = function ${initMethodName}() {
 
 		initializedGlobalRecords.set(globalDataRecordId, true)
 
-		doRuntimeInit(record)
+		doRuntimeInit(
+			record, globalThis.${nodeCommonJSRequire}
+		)
 	}
 
-	function doRuntimeInit(${fnRuntimeDataParamName}) {
+	function doRuntimeInit(${fnRuntimeDataParamName}, ${fnNodeCommonJSRequireParamName}) {
 		${fnBody}
 	}
 };
