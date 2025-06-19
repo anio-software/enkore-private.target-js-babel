@@ -23,6 +23,10 @@ globalThis.${nodeCommonJSRequire} = await (async () => {
 
 		const nodeJSRequire = nodeModule.createRequire("/")
 
+		if (!nodeJSRequire || typeof nodeJSRequire !== "function") {
+			return undefined
+		}
+
 		return function require(moduleName) {
 			if (!moduleName.startsWith("node:")) {
 				throw new Error(\`Module name must start with "node:".\`)
