@@ -21,7 +21,15 @@ globalThis.${nodeCommonJSRequire} = await (async () => {
 	try {
 		const {default: nodeModule} = await import("node:module")
 
-		return nodeModule.createRequire("/")
+		const nodeJSRequire = nodeModule.createRequire("/")
+
+		return function require(moduleName) {
+			if (!moduleName.startsWith("node:")) {
+				throw new Error(\`Module name must start with "node:".\`)
+			}
+
+			return nodeJSRequire(moduleName)
+		}
 	} catch {
 		return undefined
 	}
