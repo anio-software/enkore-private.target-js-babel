@@ -21,7 +21,7 @@ globalThis.${nodeCommonJSRequire} = await (async () => {
 	try {
 		const {default: nodeModule} = await import("node:module")
 
-		return nodeModule.createRequire(import.meta.url)
+		return nodeModule.createRequire("/")
 	} catch {
 		return undefined
 	}
