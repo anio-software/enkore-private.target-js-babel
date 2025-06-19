@@ -8,10 +8,11 @@ import {
 import {logCodeRaw} from "@enkore/debug"
 
 export function defineEnkoreJSRuntimeGlobalInitFunction(
-	fnRuntimeDataParamName: string,
-	fnNodeCommonJSRequireParamName: string,
+	fnParamNames: [string, string],
 	fnBody: string,
 ): string {
+	const [fnRuntimeDataParamName, fnNodeCommonJSRequireParamName] = fnParamNames
+
 	const sym = `Symbol.for("${symbolForIdentifier}")`
 
 	let code = ``
