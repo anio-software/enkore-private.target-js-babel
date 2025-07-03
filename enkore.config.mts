@@ -33,7 +33,6 @@ export const config: unknown = defineConfig({
 			},
 
 			publish: [{
-				packageName: "@anio-software/enkore-private.target-js-babel",
 				registry: "anioSoftware",
 				tag: isPublicRelease ? "latest" : "canary"
 			}]
