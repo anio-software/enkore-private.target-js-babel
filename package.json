@@ -1,4 +1,5 @@
 {
+  "private": true,
   "type": "module",
   "name": "@enkore-private/target-js-babel",
   "version": "0.0.11",
