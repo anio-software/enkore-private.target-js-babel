@@ -1,12 +1,10 @@
-import {
-	createConfig,
-	createTargetJSNodeOptions
-} from "@anio-software/enkore/spec/factory"
+import {defineConfig} from "@anio-software/enkore"
+import {defineTargetOptions} from "@anio-software/enkore.target-js-node"
 
-export const config: unknown = createConfig({
+export const config: unknown = defineConfig({
 	target: {
 		name: "js-node",
-		options: createTargetJSNodeOptions({
+		options: defineTargetOptions({
 			publishWithExactDependencyVersions: true,
 			externalPackages: [
 				"@babel/core",
