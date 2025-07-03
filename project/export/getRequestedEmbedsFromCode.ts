@@ -1,1 +1,1 @@
-export {getRequestedEmbedsFromCode} from "#~src/getRequestedEmbedsFromCode/index.mts"
+export {getRequestedEmbedsFromCode} from "#~src/getRequestedEmbedsFromCode/index.ts"

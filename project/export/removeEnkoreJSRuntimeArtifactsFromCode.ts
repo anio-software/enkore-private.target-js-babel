@@ -9,7 +9,7 @@ import {
 	freezeGlobalDataRecordMethodName,
 	initMethodName,
 	debugLogMethodName
-} from "#~src/constants.mts"
+} from "#~src/constants.ts"
 import type {EnkoreJSRuntimeGlobalDataRecord} from "@anio-software/enkore-private.spec"
 
 // see https://github.com/babel/babel/issues/13855

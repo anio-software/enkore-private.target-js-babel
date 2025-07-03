@@ -4,7 +4,7 @@ import {
 	initMethodName,
 	debugLogMethodName,
 	symbolForInitializedGlobalRecords
-} from "#~src/constants.mts"
+} from "#~src/constants.ts"
 import {logCodeRaw} from "@enkore/debug"
 
 export function defineEnkoreJSRuntimeGlobalInitFunction(

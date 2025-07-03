@@ -8,10 +8,10 @@ import type {
 	RequestedEmbedsFromCodeResult,
 	RequestedEmbed,
 	ReasonWhyUnknown
-} from "./Types.mts"
+} from "./Types.ts"
 
-import {pathResolvesToGetEmbedExport} from "./pathResolvesToGetEmbedExport.mts"
-import {processCallExpression} from "./processCallExpression.mts"
+import {pathResolvesToGetEmbedExport} from "./pathResolvesToGetEmbedExport.ts"
+import {processCallExpression} from "./processCallExpression.ts"
 
 export async function getRequestedEmbedsFromCode(
 	enkoreProjectModuleSpecifiers: string[],

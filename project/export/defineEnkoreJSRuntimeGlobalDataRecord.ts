@@ -2,7 +2,7 @@ import {
 	symbolForIdentifier,
 	freezeObjectHelperMethodName,
 	freezeGlobalDataRecordMethodName
-} from "#~src/constants.mts"
+} from "#~src/constants.ts"
 
 import type {EnkoreJSRuntimeGlobalDataRecord} from "@anio-software/enkore-private.spec"
 

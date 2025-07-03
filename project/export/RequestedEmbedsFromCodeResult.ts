@@ -1,1 +1,1 @@
-export type {RequestedEmbedsFromCodeResult} from "#~src/getRequestedEmbedsFromCode/Types.mts"
+export type {RequestedEmbedsFromCodeResult} from "#~src/getRequestedEmbedsFromCode/Types.ts"
