@@ -68,6 +68,17 @@ export function removeEnkoreJSRuntimeArtifactsFromCode(
 	})!
 
 	traverse(ast, {
+		CallExpression(path) {
+			if (path.node.callee.type !== "MemberExpression") return
+			if (path.node.callee.object.type !== "Identifier") return
+			if (path.node.callee.property.type !== "StringLiteral") return
+			if (path.node.callee.object.name !== "globalThis") return
+
+			if (path.node.callee.property.value === initMethodName) {
+				path.remove()
+			}
+		},
+
 		AssignmentExpression(path) {
 			if (isMemberExpression(path.node.left, "globalThis", freezeObjectHelperMethodName)) {
 				path.remove()
