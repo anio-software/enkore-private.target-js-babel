@@ -1,6 +1,10 @@
 import {defineConfig} from "@anio-software/enkore"
 import {defineTargetOptions} from "@anio-software/enkore.target-js-node"
 
+const isPublicRelease = (
+	process.env?.RELEASE_VERSION ?? ""
+).startsWith("vp")
+
 export const config: unknown = defineConfig({
 	target: {
 		name: "js-node",
@@ -30,7 +34,8 @@ export const config: unknown = defineConfig({
 
 			publish: [{
 				packageName: "@anio-software/enkore-private.target-js-babel",
-				registry: "anioSoftware"
+				registry: "anioSoftware",
+				tag: isPublicRelease ? "latest" : "canary"
 			}]
 		})
 	}
