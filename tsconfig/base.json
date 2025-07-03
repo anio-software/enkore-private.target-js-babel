@@ -4,12 +4,16 @@
     "compilerOptions": {
         "allowImportingTsExtensions": true,
         "allowSyntheticDefaultImports": true,
+        "allowArbitraryExtensions": true,
         "isolatedModules": true,
         "verbatimModuleSyntax": true,
         "strict": true,
         "skipLibCheck": false,
         "types": [
-            "node"
+            "@types/node"
+        ],
+        "lib": [
+            "esnext"
         ],
         "target": "esnext",
         "module": "nodenext",
