@@ -1,14 +1,14 @@
 {
+  "type": "module",
   "name": "@enkore-private/target-js-babel",
   "version": "0.0.11",
-  "author": "Anio Software <info@anio.software>",
   "description": "Wrapper package around the babel dependency.",
-  "license": "MIT",
+  "author": "Anio Software <info@anio.software>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/enkore-private-org/target-js-babel.git"
   },
-  "type": "module",
+  "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.26.10",
     "@babel/preset-react": "^7.27.1",
