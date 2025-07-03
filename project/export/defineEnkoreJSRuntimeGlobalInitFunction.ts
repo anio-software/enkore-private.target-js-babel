@@ -5,7 +5,7 @@ import {
 	debugLogMethodName,
 	symbolForInitializedGlobalRecords
 } from "#~src/constants.ts"
-import {logCodeRaw} from "@enkore/debug"
+import {logCodeRaw} from "@anio-software/enkore-private.debug"
 
 export function defineEnkoreJSRuntimeGlobalInitFunction(
 	fnParamNames: [string, string],
