@@ -2,7 +2,7 @@
   "private": true,
   "type": "module",
   "name": "@anio-software/enkore-private.target-js-babel",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "Wrapper package around the babel dependency.",
   "author": "Anio Software <info@anio.software>",
   "repository": {
