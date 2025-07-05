@@ -1,5 +1,6 @@
 export const oldSymbolForIdentifier = "@enkore/js-runtime/globalRecords"
 
+// NB: Make sure to update this in the target-js-factory package too!
 export const globalRecordsSymbolForIdentifier = "@anio-software/enkore.js-runtime/globalRecords"
 export const initializedGlobalRecordsSymbolForIdentifier = "@anio-software/enkore.js-runtime/initializedGlobalRecords"
 
