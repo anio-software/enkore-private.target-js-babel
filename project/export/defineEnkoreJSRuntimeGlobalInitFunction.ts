@@ -1,6 +1,6 @@
 import {
 	nodeCommonJSRequire,
-	oldSymbolForIdentifier,
+	globalRecordsSymbolForIdentifier,
 	initMethodName,
 	debugLogMethodName,
 	oldSymbolForInitializedGlobalRecords
@@ -13,7 +13,7 @@ export function defineEnkoreJSRuntimeGlobalInitFunction(
 ): string {
 	const [fnRuntimeDataParamName, fnNodeCommonJSRequireParamName] = fnParamNames
 
-	const sym = `Symbol.for("${oldSymbolForIdentifier}")`
+	const sym = `Symbol.for("${globalRecordsSymbolForIdentifier}")`
 
 	let code = ``
 
