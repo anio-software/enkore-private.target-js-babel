@@ -154,7 +154,11 @@ export function removeEnkoreJSRuntimeArtifactsFromCode(
 				return
 			} else if (path.node.test.argument.left.arguments.length !== 1) {
 				return
-			} else if (!isStringLiteral(path.node.test.argument.left.arguments[0], oldSymbolForIdentifier)) {
+			}
+
+			const symbolForIdentifier = path.node.test.argument.left.arguments[0]
+
+			if (!isStringLiteral(symbolForIdentifier, oldSymbolForIdentifier)) {
 				return
 			} else if (!isIdentifier(path.node.test.argument.right, "globalThis")) {
 				return
