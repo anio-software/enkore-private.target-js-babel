@@ -1,5 +1,6 @@
 export const oldSymbolForIdentifier = "@enkore/js-runtime/globalRecords"
-export const symbolForInitializedGlobalRecords = "@enkore/js-runtime/initializedGlobalRecords"
+export const oldSymbolForInitializedGlobalRecords = "@enkore/js-runtime/initializedGlobalRecords"
+
 export const freezeObjectHelperMethodName = "__enkoreJSRuntimeFreezeObject"
 export const freezeGlobalDataRecordMethodName = "__enkoreJSRuntimeFreezeGlobalDataRecord"
 export const initMethodName = "__enkoreJSRuntimeInitialize"

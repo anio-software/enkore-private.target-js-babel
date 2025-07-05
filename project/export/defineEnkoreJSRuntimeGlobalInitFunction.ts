@@ -3,7 +3,7 @@ import {
 	oldSymbolForIdentifier,
 	initMethodName,
 	debugLogMethodName,
-	symbolForInitializedGlobalRecords
+	oldSymbolForInitializedGlobalRecords
 } from "#~src/constants.ts"
 import {logCodeRaw} from "@anio-software/enkore-private.debug"
 
@@ -51,7 +51,7 @@ globalThis.${initMethodName} = function ${initMethodName}() {
 		throw new Error(\`globalThis[${sym}] is not an array. This is a bug.\`)
 	}
 
-	const initializedGlobalRecordsKey = Symbol.for("${symbolForInitializedGlobalRecords}")
+	const initializedGlobalRecordsKey = Symbol.for("${oldSymbolForInitializedGlobalRecords}")
 
 	if (!(initializedGlobalRecordsKey in globalThis)) {
 		Object.defineProperty(
