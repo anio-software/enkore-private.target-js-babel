@@ -115,7 +115,9 @@ export function removeEnkoreJSRuntimeArtifactsFromCode(
 
 			const symbolForIdentifier = path.node.expression.callee.object.property.arguments[0]
 
-			if (!isStringLiteral(symbolForIdentifier, oldSymbolForIdentifier)) {
+			if (
+			    !isStringLiteral(symbolForIdentifier, oldSymbolForIdentifier) &&
+			    !isStringLiteral(symbolForIdentifier, globalRecordsSymbolForIdentifier)) {
 				return
 			} else if (path.node.expression.arguments.length !== 1) {
 				return
