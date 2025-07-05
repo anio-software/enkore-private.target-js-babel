@@ -1,5 +1,4 @@
 export const oldSymbolForIdentifier = "@enkore/js-runtime/globalRecords"
-export const oldSymbolForInitializedGlobalRecords = "@enkore/js-runtime/initializedGlobalRecords"
 
 export const globalRecordsSymbolForIdentifier = "@anio-software/enkore.js-runtime/globalRecords"
 export const initializedGlobalRecordsSymbolForIdentifier = "@anio-software/enkore.js-runtime/initializedGlobalRecords"
