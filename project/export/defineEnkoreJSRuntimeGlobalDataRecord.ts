@@ -13,7 +13,7 @@ import type {EnkoreJSRuntimeGlobalDataRecord} from "@anio-software/enkore-privat
 export function defineEnkoreJSRuntimeGlobalDataRecord(
 	record: EnkoreJSRuntimeGlobalDataRecord
 ): string {
-	const sym = `Symbol.for("${globalRecordsSymbolForIdentifier}")`
+	const globalRecordsSymbol = `Symbol.for("${globalRecordsSymbolForIdentifier}")`
 
 	let code = ``
 
@@ -48,8 +48,8 @@ export function defineEnkoreJSRuntimeGlobalDataRecord(
 };
 `
 
-	code += `if (!(${sym} in globalThis)) {\n`
-	code += `\tObject.defineProperty(globalThis, ${sym},`
+	code += `if (!(${globalRecordsSymbol} in globalThis)) {\n`
+	code += `\tObject.defineProperty(globalThis, ${globalRecordsSymbol},`
 	code += JSON.stringify({
 		writable: false,
 		configurable: false,
@@ -58,7 +58,7 @@ export function defineEnkoreJSRuntimeGlobalDataRecord(
 	code += `);\n`
 	code += `}\n`
 
-	code += `;globalThis[${sym}].push(`
+	code += `;globalThis[${globalRecordsSymbol}].push(`
 	code += `globalThis.${freezeGlobalDataRecordMethodName}(`
 	code += `JSON.parse(`
 	code += JSON.stringify(JSON.stringify(record))

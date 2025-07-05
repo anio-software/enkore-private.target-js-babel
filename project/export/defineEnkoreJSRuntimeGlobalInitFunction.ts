@@ -13,7 +13,7 @@ export function defineEnkoreJSRuntimeGlobalInitFunction(
 ): string {
 	const [fnRuntimeDataParamName, fnNodeCommonJSRequireParamName] = fnParamNames
 
-	const sym = `Symbol.for("${globalRecordsSymbolForIdentifier}")`
+	const globalRecordsSymbol = `Symbol.for("${globalRecordsSymbolForIdentifier}")`
 
 	let code = ``
 
@@ -45,10 +45,10 @@ globalThis.${debugLogMethodName} = function ${debugLogMethodName}(__msgToLog) {
 };
 
 globalThis.${initMethodName} = function ${initMethodName}() {
-	const runtimeGlobalDataRecords = globalThis[${sym}]
+	const runtimeGlobalDataRecords = globalThis[${globalRecordsSymbol}]
 
 	if (!Array.isArray(runtimeGlobalDataRecords)) {
-		throw new Error(\`globalThis[${sym}] is not an array. This is a bug.\`)
+		throw new Error(\`globalThis[${globalRecordsSymbol}] is not an array. This is a bug.\`)
 	}
 
 	const initializedGlobalRecordsKey = Symbol.for("${oldSymbolForInitializedGlobalRecords}")
