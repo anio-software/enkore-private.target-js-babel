@@ -111,7 +111,11 @@ export function removeEnkoreJSRuntimeArtifactsFromCode(
 				return
 			} else if (path.node.expression.callee.object.property.arguments.length !== 1) {
 				return
-			} else if (!isStringLiteral(path.node.expression.callee.object.property.arguments[0], oldSymbolForIdentifier)) {
+			}
+
+			const symbolForIdentifier = path.node.expression.callee.object.property.arguments[0]
+
+			if (!isStringLiteral(symbolForIdentifier, oldSymbolForIdentifier)) {
 				return
 			} else if (path.node.expression.arguments.length !== 1) {
 				return
