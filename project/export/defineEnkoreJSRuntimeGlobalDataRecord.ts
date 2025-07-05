@@ -1,5 +1,5 @@
 import {
-	symbolForIdentifier,
+	oldSymbolForIdentifier,
 	freezeObjectHelperMethodName,
 	freezeGlobalDataRecordMethodName
 } from "#~src/constants.ts"
@@ -13,7 +13,7 @@ import type {EnkoreJSRuntimeGlobalDataRecord} from "@anio-software/enkore-privat
 export function defineEnkoreJSRuntimeGlobalDataRecord(
 	record: EnkoreJSRuntimeGlobalDataRecord
 ): string {
-	const sym = `Symbol.for("${symbolForIdentifier}")`
+	const sym = `Symbol.for("${oldSymbolForIdentifier}")`
 
 	let code = ``
 

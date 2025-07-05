@@ -3,7 +3,7 @@ import {parseSync} from "@babel/core"
 import _traverse from "@babel/traverse"
 import {generate} from "@babel/generator"
 import {
-	symbolForIdentifier,
+	oldSymbolForIdentifier,
 	nodeCommonJSRequire,
 	freezeObjectHelperMethodName,
 	freezeGlobalDataRecordMethodName,
@@ -110,7 +110,7 @@ export function removeEnkoreJSRuntimeArtifactsFromCode(
 				return
 			} else if (path.node.expression.callee.object.property.arguments.length !== 1) {
 				return
-			} else if (!isStringLiteral(path.node.expression.callee.object.property.arguments[0], symbolForIdentifier)) {
+			} else if (!isStringLiteral(path.node.expression.callee.object.property.arguments[0], oldSymbolForIdentifier)) {
 				return
 			} else if (path.node.expression.arguments.length !== 1) {
 				return
@@ -154,7 +154,7 @@ export function removeEnkoreJSRuntimeArtifactsFromCode(
 				return
 			} else if (path.node.test.argument.left.arguments.length !== 1) {
 				return
-			} else if (!isStringLiteral(path.node.test.argument.left.arguments[0], symbolForIdentifier)) {
+			} else if (!isStringLiteral(path.node.test.argument.left.arguments[0], oldSymbolForIdentifier)) {
 				return
 			} else if (!isIdentifier(path.node.test.argument.right, "globalThis")) {
 				return
