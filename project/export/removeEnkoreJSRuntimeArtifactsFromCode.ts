@@ -4,6 +4,7 @@ import _traverse from "@babel/traverse"
 import {generate} from "@babel/generator"
 import {
 	oldSymbolForIdentifier,
+	globalRecordsSymbolForIdentifier,
 	nodeCommonJSRequire,
 	freezeObjectHelperMethodName,
 	freezeGlobalDataRecordMethodName,
@@ -158,7 +159,9 @@ export function removeEnkoreJSRuntimeArtifactsFromCode(
 
 			const symbolForIdentifier = path.node.test.argument.left.arguments[0]
 
-			if (!isStringLiteral(symbolForIdentifier, oldSymbolForIdentifier)) {
+			if (
+			    !isStringLiteral(symbolForIdentifier, oldSymbolForIdentifier) &&
+			    !isStringLiteral(symbolForIdentifier, globalRecordsSymbolForIdentifier)) {
 				return
 			} else if (!isIdentifier(path.node.test.argument.right, "globalThis")) {
 				return
