@@ -56,6 +56,10 @@ function isMemberExpression(
 	return node.property.name === propertyIdentifier
 }
 
+function removeRuntimeHeader(code: string): string {
+	return code.split(`/*212f4844-e8b5-4681-8ad1-54b9c7a5bee8:`).join(`/*`)
+}
+
 export function removeEnkoreJSRuntimeArtifactsFromCode(
 	code: string
 ): {
@@ -178,7 +182,7 @@ export function removeEnkoreJSRuntimeArtifactsFromCode(
 	})
 
 	return {
-		code: generate(ast).code,
+		code: removeRuntimeHeader(generate(ast).code),
 		globalDataRecords
 	}
 }
