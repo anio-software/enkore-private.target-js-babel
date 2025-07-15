@@ -13,7 +13,6 @@ export const config: unknown = defineConfig({
 			externalPackages: [
 				"@babel/core",
 				"@babel/traverse",
-				"@babel/generator",
 				"@babel/preset-typescript"
 			],
 

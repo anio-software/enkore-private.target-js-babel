@@ -22,10 +22,8 @@
     "@anio-software/enkore-private.spec": "^0.289.0",
     "@anio-software/enkore.core": "^0.11.21-canary-9a7ab587-f50f24c9",
     "@anio-software/enkore.target-js-node": "^0.0.276-canary-91b7b2ea-63393845",
-    "@babel/generator": "^7.27.0",
     "@babel/types": "^7.27.0",
     "@types/babel__core": "^7.20.5",
-    "@types/babel__generator": "^7.27.0",
     "@types/babel__traverse": "^7.20.7"
   }
 }
